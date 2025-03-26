@@ -1,16 +1,19 @@
 import { useRef, useState, useEffect } from "react";
 import { Popover, PopoverTrigger, PopoverContent } from "@heroui/popover";
 import { Button } from "@heroui/button";
-import { Calendar, DateValue } from "@heroui/calendar";
+import { Calendar } from "@heroui/calendar";
+import { CalendarDate, today, getLocalTimeZone } from "@internationalized/date";
 
 import { IconProps } from "@/types";
 
 type PopoverCalendarProps = {
+  defaultValue?: CalendarDate;
   icon: React.ElementType<IconProps>;
-  onChange?: (value: DateValue) => void;
+  onChange?: (value: CalendarDate) => void;
 };
 
 export default function PopoverCalendar({
+  defaultValue,
   icon,
   onChange,
 }: PopoverCalendarProps) {
@@ -47,6 +50,8 @@ export default function PopoverCalendar({
         <PopoverContent>
           <Calendar
             firstDayOfWeek="mon"
+            minValue={today(getLocalTimeZone())}
+            value={defaultValue}
             onChange={(value) => {
               setOpen(false);
               onChange?.(value);

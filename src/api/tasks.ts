@@ -1,16 +1,30 @@
+import { parseDate } from "@internationalized/date";
+
 import { axiosPrivate } from "@/util/axios";
-import { Task } from "@/types";
+import { TaskDto, Task } from "@/types";
 
 export const fetchTasks = async (): Promise<[Task]> => {
   const response = await axiosPrivate.get("/tasks").catch((error) => {
     throw new Error(error?.response?.data?.error || "An error occurred");
   });
 
-  return response.data;
+  const tasks: [Task] = response.data.map((task: TaskDto) => ({
+    ...task,
+    dueDate: task.dueDate ? parseDate(task.dueDate) : null,
+    deadlineDate: task.deadlineDate ? parseDate(task.deadlineDate) : null,
+  }));
+
+  return tasks;
 };
 
 export const patchTask = async (task: Task): Promise<void> => {
-  await axiosPrivate.patch(`/tasks/${task.id}`, task).catch((error) => {
+  const taskDto: TaskDto = {
+    ...task,
+    dueDate: task.dueDate?.toString(),
+    deadlineDate: task.deadlineDate?.toString(),
+  };
+
+  await axiosPrivate.patch(`/tasks/${task.id}`, taskDto).catch((error) => {
     throw new Error(error?.response?.data?.error || "An error occurred");
   });
 };

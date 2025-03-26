@@ -121,12 +121,24 @@ export default function Task({
         {selection == task.id && (
           <div className="w-full">
             <div className="flex justify-end">
-              <PopoverCalendar
-                icon={CalendarIcon}
-              />
-              <PopoverCalendar
-                icon={FlagIcon}
-              />
+              <Field name="dueDate">
+                {({ state, handleChange }) => (
+                  <PopoverCalendar
+                    defaultValue={state.value}
+                    icon={CalendarIcon}
+                    onChange={(value) => handleChange(value)}
+                  />
+                )}
+              </Field>
+              <Field name="deadlineDate">
+                {({ state, handleChange }) => (
+                  <PopoverCalendar
+                    defaultValue={state.value}
+                    icon={FlagIcon}
+                    onChange={(value) => handleChange(value)}
+                  />
+                )}
+              </Field>
             </div>
           </div>
         )}
