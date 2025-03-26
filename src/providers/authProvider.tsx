@@ -7,53 +7,56 @@ import {
   ReactNode,
 } from "react";
 
-import { axiosPrivate } from "@/util/axios";
+import {
+  axiosPrivate,
+  setupRequestInterceptor,
+  setupResponseInterceptor,
+  ejectInterceptor,
+} from "@/util";
+import { refreshAccessToken } from "@/api";
 
 export type AuthContextType = {
   isAuthenticated: boolean;
   setToken: (token: string) => void;
-  token: string | null;
 };
 
 export const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
   setToken: () => {},
-  token: null,
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [token, setToken] = useState<string | null>(null);
 
-  const saveAndSetToken = (token: string) => {
-    localStorage.setItem("token", token);
-    setToken(token);
-  };
+  useEffect(() => {
+    const initializeAuth = async () => {
+      const newAccessToken = await refreshAccessToken();
+
+      if (newAccessToken) setToken(newAccessToken);
+    };
+
+    initializeAuth();
+  }, []);
+
+  useEffect(() => {
+    const requestIntercept = setupRequestInterceptor(axiosPrivate, token);
+
+    return () => ejectInterceptor(axiosPrivate, requestIntercept);
+  }, [token]);
+
+  useEffect(() => {
+    const responseIntercept = setupResponseInterceptor(axiosPrivate, setToken);
+
+    return () => ejectInterceptor(axiosPrivate, responseIntercept);
+  }, [setToken]);
 
   const contextValue = useMemo(
     () => ({
       isAuthenticated: !!token,
-      setToken: saveAndSetToken,
-      token,
+      setToken,
     }),
     [token],
   );
-
-  useEffect(() => {
-    const requestIntercept = axiosPrivate.interceptors.request.use(
-      (config) => {
-        if (!config.headers["Authorization"]) {
-          config.headers["Authorization"] = `Bearer ${token}`;
-        }
-
-        return config;
-      },
-      (error) => Promise.reject(error),
-    );
-
-    return () => {
-      axiosPrivate.interceptors.request.eject(requestIntercept);
-    };
-  }, [token]);
 
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>

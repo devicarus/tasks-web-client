@@ -16,4 +16,15 @@ export const fetchAccessToken = async ({
 
   return response.data.accessToken;
 };
+
+export const refreshAccessToken = async (): Promise<string> => {
+  const response = await axiosPublic
+    .post("/auth/refresh", {
+      withCredentials: true,
+    })
+    .catch((error) => {
+      throw new Error(error?.response?.data?.error || "An error occurred");
+    });
+
+  return response.data.accessToken;
 };
