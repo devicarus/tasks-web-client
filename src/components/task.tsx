@@ -4,10 +4,13 @@ import { Form } from "@heroui/form";
 import { useForm, useStore } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
 import { Input } from "@heroui/input";
+import { Chip } from "@heroui/chip";
+import { today, getLocalTimeZone } from "@internationalized/date";
 
 import {
   SolarCalendarLinear as CalendarIcon,
   SolarFlagLinear as FlagIcon,
+  SolarFlagBold as FlagIconFilled,
 } from "@/components/icons";
 import PopoverCalendar from "@/components/popover-calendar";
 import { Task as TaskType } from "@/types";
@@ -15,22 +18,24 @@ import { patchTask, deleteTask } from "@/api/tasks";
 
 type TaskProps = {
   task: TaskType;
-  selection?: number | null;
-  onSelectionChange?: React.Dispatch<React.SetStateAction<number | null>>;
+  isOpen?: boolean;
+  onClose?: () => void;
+  onOpen?: () => void;
   onDelete?: () => void;
   className?: string | undefined;
 };
 
 export default function Task({
   task,
-  selection,
-  onSelectionChange,
+  isOpen,
+  onClose,
+  onOpen,
   onDelete,
   className = "",
 }: TaskProps) {
   const { Field, Subscribe, state, store, handleSubmit } = useForm({
     defaultValues: task,
-    onSubmit: () => onSelectionChange?.(null),
+    onSubmit: () => onClose?.(),
   });
 
   const patchMutation = useMutation({
@@ -39,10 +44,7 @@ export default function Task({
 
   const deleteMutation = useMutation({
     mutationFn: deleteTask,
-    onSuccess: () => {
-      onDelete?.();
-      onSelectionChange?.(null);
-    },
+    onSuccess: () => onDelete?.(),
   });
 
   useEffect(() => {
@@ -51,18 +53,17 @@ export default function Task({
 
   return (
     <div
-      className={`transition-all duration-200 relative hover:bg-default-100 hover:shadow-lg rounded-xl ${className} ${selection == task.id ? "bg-default-100 shadow-lg" : ""}`}
+      className={`cursor-auto transition-all duration-200 relative hover:bg-default-100 hover:shadow-lg rounded-xl ${className} ${isOpen ? "bg-default-100 shadow-lg" : ""}`}
       id={`task-${task.id}`}
       role="button"
       tabIndex={0}
       onBlur={(e) => {
-        if (!e.currentTarget.contains(e.relatedTarget))
-          onSelectionChange?.(null);
+        if (!e.currentTarget.contains(e.relatedTarget)) onClose?.();
       }}
-      onClick={() => onSelectionChange?.(task.id)}
+      onClick={() => onOpen?.()}
       onKeyDown={(e) => {
-        if (e.key === "Enter") onSelectionChange?.(task.id);
-        if (e.key === "Escape") onSelectionChange?.(null);
+        if (e.key === "Enter") onOpen?.();
+        if (e.key === "Escape") onClose?.();
       }}
     >
       <Form
@@ -72,7 +73,9 @@ export default function Task({
           handleSubmit();
         }}
       >
-        <div className="cursor-pointer flex flex-row w-full p-2">
+        <div
+          className={`flex flex-row w-full p-2 ${isOpen ? "" : "cursor-pointer"}`}
+        >
           <Field name="done">
             {({ state, handleChange, handleBlur }) => (
               <Checkbox
@@ -83,7 +86,7 @@ export default function Task({
               />
             )}
           </Field>
-          {selection == task.id ? (
+          {isOpen ? (
             <Field name="name">
               {({ state, handleChange, handleBlur }) => (
                 <Input
@@ -107,25 +110,41 @@ export default function Task({
               )}
             </Field>
           ) : (
-            <Subscribe selector={(state) => state.values.done}>
-              {(done) => (
-                <span
-                  className={`my-auto ml-2 ${done ? "line-through text-default-400" : ""}`}
-                >
-                  {state.values.name}
-                </span>
+            <>
+              <Subscribe selector={(state) => state.values.done}>
+                {(done) => (
+                  <span
+                    className={`my-auto ml-2 ${done ? "line-through text-default-400" : ""}`}
+                  >
+                    {state.values.name}
+                  </span>
+                )}
+              </Subscribe>
+              {state.values.deadlineDate && (
+                <Subscribe selector={(state) => state.values.deadlineDate}>
+                  {(deadlineDate) => (
+                    <Chip
+                      className="ml-auto"
+                      color="danger"
+                      startContent={<FlagIconFilled size={18} />}
+                      variant="flat"
+                    >
+                      {deadlineDate.compare(today(getLocalTimeZone()))}d left
+                    </Chip>
+                  )}
+                </Subscribe>
               )}
-            </Subscribe>
+            </>
           )}
         </div>
-        {selection == task.id && (
+        {isOpen && (
           <div className="w-full">
             <div className="flex justify-end">
               <Field name="dueDate">
                 {({ state, handleChange }) => (
                   <PopoverCalendar
                     defaultValue={state.value}
-                    icon={CalendarIcon}
+                    trigger={<CalendarIcon size={18} />}
                     onChange={(value) => handleChange(value)}
                   />
                 )}
@@ -134,7 +153,7 @@ export default function Task({
                 {({ state, handleChange }) => (
                   <PopoverCalendar
                     defaultValue={state.value}
-                    icon={FlagIcon}
+                    trigger={<FlagIcon size={18} />}
                     onChange={(value) => handleChange(value)}
                   />
                 )}

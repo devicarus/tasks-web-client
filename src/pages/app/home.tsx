@@ -30,16 +30,20 @@ export default function AppHomePage() {
         }`}
       />
 
-      <div className="max-w-lg">
+      <div className="max-w-md">
         {data &&
           data.map((task) => (
             <Task
               key={task.id}
               className={selected == task.id ? "z-20" : "z-0"}
-              selection={selected}
+              isOpen={selected == task.id}
               task={task}
-              onDelete={refetch}
-              onSelectionChange={setSelected}
+              onClose={() => setSelected(null)}
+              onDelete={() => {
+                refetch();
+                setSelected(null);
+              }}
+              onOpen={() => setSelected(task.id)}
             />
           ))}
       </div>

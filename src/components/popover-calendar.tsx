@@ -4,21 +4,17 @@ import { Button } from "@heroui/button";
 import { Calendar } from "@heroui/calendar";
 import { CalendarDate, today, getLocalTimeZone } from "@internationalized/date";
 
-import { IconProps } from "@/types";
-
 type PopoverCalendarProps = {
   defaultValue?: CalendarDate;
-  icon: React.ElementType<IconProps>;
+  trigger: React.ReactElement;
   onChange?: (value: CalendarDate) => void;
 };
 
 export default function PopoverCalendar({
   defaultValue,
-  icon,
+  trigger,
   onChange,
 }: PopoverCalendarProps) {
-  const Icon = icon;
-
   const containerRef = useRef<HTMLDivElement>(null);
   const [container, setContainer] = useState<HTMLDivElement>();
 
@@ -44,7 +40,7 @@ export default function PopoverCalendar({
       >
         <PopoverTrigger>
           <Button isIconOnly className="bg-transparent">
-            <Icon size={18} />
+            {trigger}
           </Button>
         </PopoverTrigger>
         <PopoverContent>
