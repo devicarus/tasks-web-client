@@ -6,7 +6,7 @@ export const fetchAccessToken = async ({
   password,
 }: Credentials): Promise<string> => {
   const response = await axiosPublic
-    .post("/auth/access-token", {
+    .post("/auth/token", {
       username,
       password,
     })
@@ -14,5 +14,6 @@ export const fetchAccessToken = async ({
       throw new Error(error?.response?.data?.error || "An error occurred");
     });
 
-  return response.data.token;
+  return response.data.accessToken;
+};
 };
