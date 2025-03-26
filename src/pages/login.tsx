@@ -57,8 +57,8 @@ export default function LoginPage() {
           >
             {error && <Alert color="danger" title={error} />}
 
-            <Field
-              children={({ state, handleChange, handleBlur }) => (
+            <Field name="username">
+              {({ state, handleChange, handleBlur }) => (
                 <Input
                   isRequired
                   defaultValue={state.value}
@@ -69,10 +69,9 @@ export default function LoginPage() {
                   onChange={(e) => handleChange(e.target.value)}
                 />
               )}
-              name="username"
-            />
-            <Field
-              children={({ state, handleChange, handleBlur }) => (
+            </Field>
+            <Field name="password">
+              {({ state, handleChange, handleBlur }) => (
                 <Input
                   isRequired
                   defaultValue={state.value}
@@ -83,8 +82,7 @@ export default function LoginPage() {
                   onChange={(e) => handleChange(e.target.value)}
                 />
               )}
-              name="password"
-            />
+            </Field>
             <Button
               className="w-full h-12 mt-1"
               color="primary"

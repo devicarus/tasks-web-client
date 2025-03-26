@@ -72,8 +72,8 @@ export default function Task({
         }}
       >
         <div className="cursor-pointer flex flex-row w-full p-2">
-          <Field
-            children={({ state, handleChange, handleBlur }) => (
+          <Field name="done">
+            {({ state, handleChange, handleBlur }) => (
               <Checkbox
                 className="-mr-1 pr-0"
                 isSelected={state.value}
@@ -81,11 +81,10 @@ export default function Task({
                 onValueChange={(checked) => handleChange(checked)}
               />
             )}
-            name="done"
-          />
+          </Field>
           {selection == task.id ? (
-            <Field
-              children={({ state, handleChange, handleBlur }) => (
+            <Field name="name">
+              {({ state, handleChange, handleBlur }) => (
                 <Input
                   autoFocus={state.value == ""}
                   classNames={{
@@ -105,8 +104,7 @@ export default function Task({
                   }}
                 />
               )}
-              name="name"
-            />
+            </Field>
           ) : (
             <Subscribe selector={(state) => state.values.done}>
               {(done) => (
