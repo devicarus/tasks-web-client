@@ -1,12 +1,8 @@
 import * as React from "react";
 
-import { IconSvgProps } from "@/types";
+import { IconProps } from "@/types";
 
-export const Logo: React.FC<IconSvgProps> = ({
-  size = 36,
-  height,
-  ...props
-}) => (
+export const Logo: React.FC<IconProps> = ({ size = 36, height, ...props }) => (
   <svg
     fill="none"
     height={size || height}
@@ -23,7 +19,7 @@ export const Logo: React.FC<IconSvgProps> = ({
   </svg>
 );
 
-export const DiscordIcon: React.FC<IconSvgProps> = ({
+export const DiscordIcon: React.FC<IconProps> = ({
   size = 24,
   width,
   height,
@@ -44,7 +40,7 @@ export const DiscordIcon: React.FC<IconSvgProps> = ({
   );
 };
 
-export const TwitterIcon: React.FC<IconSvgProps> = ({
+export const TwitterIcon: React.FC<IconProps> = ({
   size = 24,
   width,
   height,
@@ -65,7 +61,7 @@ export const TwitterIcon: React.FC<IconSvgProps> = ({
   );
 };
 
-export const GithubIcon: React.FC<IconSvgProps> = ({
+export const GithubIcon: React.FC<IconProps> = ({
   size = 24,
   width,
   height,
@@ -93,7 +89,7 @@ export const MoonFilledIcon = ({
   width,
   height,
   ...props
-}: IconSvgProps) => (
+}: IconProps) => (
   <svg
     aria-hidden="true"
     focusable="false"
@@ -115,7 +111,7 @@ export const SunFilledIcon = ({
   width,
   height,
   ...props
-}: IconSvgProps) => (
+}: IconProps) => (
   <svg
     aria-hidden="true"
     focusable="false"
@@ -137,7 +133,7 @@ export const HeartFilledIcon = ({
   width,
   height,
   ...props
-}: IconSvgProps) => (
+}: IconProps) => (
   <svg
     aria-hidden="true"
     focusable="false"
@@ -157,7 +153,7 @@ export const HeartFilledIcon = ({
   </svg>
 );
 
-export const SearchIcon = (props: IconSvgProps) => (
+export const SearchIcon = (props: IconProps) => (
   <svg
     aria-hidden="true"
     fill="none"
@@ -190,7 +186,7 @@ export const SolarHome2Linear = ({
   width,
   height,
   ...props
-}: IconSvgProps) => (
+}: IconProps) => (
   <svg
     aria-hidden="true"
     fill="none"
@@ -208,7 +204,7 @@ export const SolarHome2Linear = ({
   </svg>
 );
 
-export const SolarWidget2Linear: React.FC<IconSvgProps> = ({
+export const SolarWidget2Linear: React.FC<IconProps> = ({
   size = 24,
   width,
   height,
@@ -232,7 +228,7 @@ export const SolarWidget2Linear: React.FC<IconSvgProps> = ({
   );
 };
 
-export const SolarChecklistMinimalisticLinear: React.FC<IconSvgProps> = ({
+export const SolarChecklistMinimalisticLinear: React.FC<IconProps> = ({
   size = 24,
   width,
   height,
@@ -256,7 +252,7 @@ export const SolarChecklistMinimalisticLinear: React.FC<IconSvgProps> = ({
   );
 };
 
-export const SolarSettingsLinear: React.FC<IconSvgProps> = ({
+export const SolarSettingsLinear: React.FC<IconProps> = ({
   size = 24,
   width,
   height,
@@ -278,7 +274,7 @@ export const SolarSettingsLinear: React.FC<IconSvgProps> = ({
   );
 };
 
-export const SolarFlagLinear: React.FC<IconSvgProps> = ({
+export const SolarFlagLinear: React.FC<IconProps> = ({
   size = 24,
   width,
   height,
@@ -303,7 +299,7 @@ export const SolarFlagLinear: React.FC<IconSvgProps> = ({
   );
 };
 
-export const SolarCalendarLinear: React.FC<IconSvgProps> = ({
+export const SolarCalendarLinear: React.FC<IconProps> = ({
   size = 24,
   width,
   height,
@@ -338,7 +334,7 @@ export const SolarCalendarLinear: React.FC<IconSvgProps> = ({
   );
 };
 
-export const SolarAddCircleBold: React.FC<IconSvgProps> = ({
+export const SolarAddCircleBold: React.FC<IconProps> = ({
   size = 24,
   width,
   height,
