@@ -24,13 +24,13 @@ type TaskProps = {
 export default function Task({
   task,
   selection,
-  onSelectionChange = () => {},
-  onDelete = () => {},
+  onSelectionChange,
+  onDelete,
   className = "",
 }: TaskProps) {
   const { Field, Subscribe, state, store, handleSubmit } = useForm({
     defaultValues: task,
-    onSubmit: () => onSelectionChange(null),
+    onSubmit: () => onSelectionChange?.(null),
   });
 
   const patchMutation = useMutation({
@@ -40,8 +40,8 @@ export default function Task({
   const deleteMutation = useMutation({
     mutationFn: deleteTask,
     onSuccess: () => {
-      onDelete();
-      onSelectionChange(null);
+      onDelete?.();
+      onSelectionChange?.(null);
     },
   });
 
@@ -56,12 +56,13 @@ export default function Task({
       role="button"
       tabIndex={0}
       onBlur={(e) => {
-        if (!e.currentTarget.contains(e.relatedTarget)) onSelectionChange(null);
+        if (!e.currentTarget.contains(e.relatedTarget))
+          onSelectionChange?.(null);
       }}
-      onClick={() => onSelectionChange(task.id)}
+      onClick={() => onSelectionChange?.(task.id)}
       onKeyDown={(e) => {
-        if (e.key === "Enter") onSelectionChange(task.id);
-        if (e.key === "Escape") onSelectionChange(null);
+        if (e.key === "Enter") onSelectionChange?.(task.id);
+        if (e.key === "Escape") onSelectionChange?.(null);
       }}
     >
       <Form
