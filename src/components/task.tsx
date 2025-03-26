@@ -4,14 +4,12 @@ import { Form } from "@heroui/form";
 import { useForm, useStore } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
 import { Input } from "@heroui/input";
-import { Button } from "@heroui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "@heroui/popover";
-import { Calendar } from "@heroui/calendar";
 
 import {
   SolarCalendarLinear as CalendarIcon,
   SolarFlagLinear as FlagIcon,
 } from "@/components/icons";
+import PopoverCalendar from "@/components/popover-calendar";
 import { Task as TaskType } from "@/types";
 import { patchTask, deleteTask } from "@/api/tasks";
 
@@ -124,44 +122,12 @@ export default function Task({
         {selection == task.id && (
           <div className="w-full">
             <div className="flex justify-end">
-              <Popover
-                classNames={{
-                  content: "shadow-none p-0",
-                }}
-                offset={10}
-                placement="bottom"
-                portalContainer={
-                  document.getElementById(`task-${task.id}`) || document.body
-                }
-              >
-                <PopoverTrigger>
-                  <Button isIconOnly className="bg-transparent">
-                    <CalendarIcon size={18} />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent>
-                  <Calendar />
-                </PopoverContent>
-              </Popover>
-              <Popover
-                classNames={{
-                  content: "shadow-none p-0",
-                }}
-                offset={10}
-                placement="bottom"
-                portalContainer={
-                  document.getElementById(`task-${task.id}`) || document.body
-                }
-              >
-                <PopoverTrigger>
-                  <Button isIconOnly className="bg-transparent">
-                    <FlagIcon size={18} />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent>
-                  <Calendar />
-                </PopoverContent>
-              </Popover>
+              <PopoverCalendar
+                icon={CalendarIcon}
+              />
+              <PopoverCalendar
+                icon={FlagIcon}
+              />
             </div>
           </div>
         )}
