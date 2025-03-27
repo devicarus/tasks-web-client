@@ -74,7 +74,7 @@ export default function Task({
         }}
       >
         <div
-          className={`flex flex-row w-full p-2 ${isOpen ? "" : "cursor-pointer"}`}
+          className={`flex items-center w-full px-2 h-10 ${isOpen ? "" : "cursor-pointer"}`}
         >
           <Field name="done">
             {({ state, handleChange, handleBlur }) => (
@@ -93,7 +93,7 @@ export default function Task({
                   autoFocus={state.value == ""}
                   classNames={{
                     inputWrapper:
-                      "bg-transparent shadow-none data-[hover=true]:bg-transparent -my-1",
+                      "bg-transparent shadow-none data-[hover=true]:bg-transparent",
                     input: "text-base",
                   }}
                   defaultValue={state.value}
@@ -114,7 +114,7 @@ export default function Task({
               <Subscribe selector={(state) => state.values.done}>
                 {(done) => (
                   <span
-                    className={`my-auto ml-2 ${done ? "line-through text-default-400" : ""}`}
+                    className={`ml-2 truncate ${done ? "line-through text-default-400" : ""}`}
                   >
                     {state.values.name}
                   </span>
@@ -137,30 +137,60 @@ export default function Task({
             </>
           )}
         </div>
-        {isOpen && (
-          <div className="w-full">
-            <div className="flex justify-end">
-              <Field name="dueDate">
-                {({ state, handleChange }) => (
-                  <PopoverCalendar
-                    defaultValue={state.value}
-                    trigger={<CalendarIcon size={18} />}
-                    onChange={(value) => handleChange(value)}
-                  />
-                )}
-              </Field>
-              <Field name="deadlineDate">
-                {({ state, handleChange }) => (
-                  <PopoverCalendar
-                    defaultValue={state.value}
-                    trigger={<FlagIcon size={18} />}
-                    onChange={(value) => handleChange(value)}
-                  />
-                )}
-              </Field>
-            </div>
-          </div>
-        )}
+        <div
+          className={`w-full flex flex-row justify-between overflow-hidden transition-all duration-200 ${isOpen ? "max-h-96 opacity-100 ease-in" : "max-h-0 opacity-0"}`}
+        >
+          {isOpen && (
+            <>
+              <div className="flex flex-col gap-2 pl-2 pb-2">
+                <Subscribe selector={(state) => state.values.dueDate}>
+                  {(dueDate) =>
+                    dueDate ? (
+                      <Chip
+                        radius="sm"
+                        startContent={<CalendarIcon size={18} />}
+                      >
+                        {dueDate.day}. {dueDate.month}.
+                      </Chip>
+                    ) : null
+                  }
+                </Subscribe>
+                <Subscribe selector={(state) => state.values.deadlineDate}>
+                  {(deadlineDate) =>
+                    deadlineDate ? (
+                      <Chip
+                        radius="sm"
+                        startContent={<FlagIconFilled size={18} />}
+                      >
+                        {deadlineDate.day}. {deadlineDate.month}.
+                      </Chip>
+                    ) : null
+                  }
+                </Subscribe>
+              </div>
+              <div className="flex items-end">
+                <Field name="dueDate">
+                  {({ state, handleChange }) => (
+                    <PopoverCalendar
+                      defaultValue={state.value}
+                      trigger={<CalendarIcon size={18} />}
+                      onChange={(value) => handleChange(value)}
+                    />
+                  )}
+                </Field>
+                <Field name="deadlineDate">
+                  {({ state, handleChange }) => (
+                    <PopoverCalendar
+                      defaultValue={state.value}
+                      trigger={<FlagIcon size={18} />}
+                      onChange={(value) => handleChange(value)}
+                    />
+                  )}
+                </Field>
+              </div>
+            </>
+          )}
+        </div>
       </Form>
     </div>
   );
