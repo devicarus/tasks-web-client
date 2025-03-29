@@ -33,7 +33,7 @@ export default function Task({
 }: TaskProps) {
   const form = useAppForm({
     defaultValues: task,
-    onSubmit: () => onClose?.(),
+    onSubmit: ({ value }) => patchMutation.mutateAsync(value),
   });
 
   const patchMutation = useMutation({
@@ -46,7 +46,7 @@ export default function Task({
   });
 
   useEffect(() => {
-    patchMutation.mutateAsync(form.state.values);
+    if (!form.state.isPristine) form.handleSubmit();
   }, [useStore(form.store, ({ values }) => values)]);
 
   return (
