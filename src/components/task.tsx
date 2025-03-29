@@ -1,9 +1,7 @@
 import { useEffect } from "react";
-import { Checkbox } from "@heroui/checkbox";
 import { Form } from "@heroui/form";
 import { useStore } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
-import { Input } from "@heroui/input";
 import { Chip } from "@heroui/chip";
 import { today, getLocalTimeZone } from "@internationalized/date";
 
@@ -12,7 +10,6 @@ import {
   SolarFlagLinear as FlagIcon,
   SolarFlagBold as FlagIconFilled,
 } from "@/components/icons";
-import PopoverCalendar from "@/components/popover-calendar";
 import { Task as TaskType } from "@/types";
 import { patchTask, deleteTask } from "@/api/tasks";
 import { withForm, useAppForm } from "@/hooks/form";
@@ -54,7 +51,7 @@ export default function Task({
 
   return (
     <div
-      className={`cursor-auto transition-all duration-200 relative hover:bg-default-100 hover:shadow-lg rounded-xl ${className} 
+      className={`cursor-auto transition-all duration-200 relative hover:bg-default-100 hover:shadow-lg rounded-xl ${className}
         ${isOpen ? "bg-default-100 shadow-lg" : ""}`}
       id={`task-${task.id}`}
       role="button"
@@ -81,7 +78,7 @@ export default function Task({
           onDelete={() => deleteMutation.mutateAsync(task.id)}
         />
         <div
-          className={`w-full overflow-hidden transition-all duration-200 
+          className={`w-full overflow-hidden transition-all duration-200
             ${isOpen ? "max-h-96 opacity-100 ease-in" : "max-h-0 opacity-0"}`}
         >
           {isOpen && <TaskBody form={form} />}
@@ -102,38 +99,23 @@ const TaskHeader = withForm({
       <div
         className={`flex items-center w-full px-2 h-10 ${isOpen ? "" : "cursor-pointer"}`}
       >
-        <form.Field name="done">
-          {({ state, handleChange, handleBlur }) => (
-            <Checkbox
-              className="-mr-1 pr-0"
-              isSelected={state.value}
-              onBlur={handleBlur}
-              onValueChange={(checked) => handleChange(checked)}
-            />
-          )}
-        </form.Field>
+        <form.AppField name="done">
+          {({ Checkbox }) => <Checkbox className="-mr-1 pr-0" />}
+        </form.AppField>
         {isOpen ? (
-          <form.Field name="name">
-            {({ state, handleChange, handleBlur }) => (
+          <form.AppField name="name">
+            {({ Input, state }) => (
               <Input
-                autoFocus={state.value == ""}
-                classNames={{
-                  inputWrapper:
-                    "bg-transparent shadow-none data-[hover=true]:bg-transparent",
-                  input: "text-base",
-                }}
-                defaultValue={state.value}
+                autoFocusOnEmpty
                 placeholder="New To-Do"
                 size="sm"
-                type="name"
-                onBlur={handleBlur}
-                onChange={(e) => handleChange(e.target.value)}
+                variant="plain"
                 onKeyDown={(e) => {
                   if (e.code === "Backspace" && state.value == "") onDelete();
                 }}
               />
             )}
-          </form.Field>
+          </form.AppField>
         ) : (
           <>
             <form.Subscribe selector={(state) => state.values.done}>
@@ -192,24 +174,16 @@ const TaskBody = withForm({
           </form.Subscribe>
         </div>
         <div className="flex items-end">
-          <form.Field name="dueDate">
-            {({ state, handleChange }) => (
-              <PopoverCalendar
-                defaultValue={state.value}
-                trigger={<CalendarIcon size={18} />}
-                onChange={(value) => handleChange(value)}
-              />
+          <form.AppField name="dueDate">
+            {({ PopoverCalendar }) => (
+              <PopoverCalendar trigger={<CalendarIcon size={18} />} />
             )}
-          </form.Field>
-          <form.Field name="deadlineDate">
-            {({ state, handleChange }) => (
-              <PopoverCalendar
-                defaultValue={state.value}
-                trigger={<FlagIcon size={18} />}
-                onChange={(value) => handleChange(value)}
-              />
+          </form.AppField>
+          <form.AppField name="deadlineDate">
+            {({ PopoverCalendar }) => (
+              <PopoverCalendar trigger={<FlagIcon size={18} />} />
             )}
-          </form.Field>
+          </form.AppField>
         </div>
       </div>
     );
