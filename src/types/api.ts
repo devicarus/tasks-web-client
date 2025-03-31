@@ -10,8 +10,8 @@ export type TaskDto = {
   name: string;
   done: boolean;
   note: string;
-  dueDate: string;
-  deadlineDate: string;
+  dueDate: string | null;
+  deadlineDate: string | null;
 };
 
 export type Task = {
@@ -19,6 +19,7 @@ export type Task = {
   name: string;
   done: boolean;
   note: string;
-  dueDate: CalendarDate;
-  deadlineDate: CalendarDate;
+  dueDate: CalendarDate | null;
+  deadlineDate: CalendarDate | null;
+};
 };

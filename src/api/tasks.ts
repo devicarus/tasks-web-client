@@ -20,11 +20,11 @@ export const fetchTasks = async (): Promise<[Task]> => {
 export const patchTask = async (task: Task): Promise<void> => {
   const taskDto: TaskDto = {
     ...task,
-    dueDate: task.dueDate?.toString(),
-    deadlineDate: task.deadlineDate?.toString(),
+    dueDate: task.dueDate?.toString() || null,
+    deadlineDate: task.deadlineDate?.toString() || null,
   };
 
-  await axiosPrivate.patch(`/tasks/${task.id}`, taskDto).catch((error) => {
+  await axiosPrivate.post(`/tasks/${task.id}`, taskDto).catch((error) => {
     throw new Error(error?.response?.data?.error || "An error occurred");
   });
 };

@@ -5,14 +5,18 @@ import { Calendar } from "@heroui/calendar";
 import { CalendarDate, today, getLocalTimeZone } from "@internationalized/date";
 
 type PopoverCalendarProps = {
+  classNames?: {
+    button?: string;
+  };
   defaultValue?: CalendarDate;
-  trigger: React.ReactElement;
+  buttonContent: React.ReactElement;
   onChange?: (value: CalendarDate) => void;
 };
 
 export default function PopoverCalendar({
+  classNames,
   defaultValue,
-  trigger,
+  buttonContent,
   onChange,
 }: PopoverCalendarProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -34,13 +38,13 @@ export default function PopoverCalendar({
         }}
         isOpen={open}
         offset={10}
-        placement="bottom"
+        placement="bottom-start"
         portalContainer={container}
         onOpenChange={setOpen}
       >
         <PopoverTrigger>
-          <Button isIconOnly className="bg-transparent">
-            {trigger}
+          <Button className={classNames?.button} size="sm">
+            {buttonContent}
           </Button>
         </PopoverTrigger>
         <PopoverContent>

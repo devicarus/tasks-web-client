@@ -4,16 +4,21 @@ import PopoverCalendar from "@/components/popover-calendar";
 import { useFieldContext } from "@/hooks/form";
 
 export default function PopoverCalendarField({
-  trigger,
+  buttonContent,
+  classNames,
 }: {
-  trigger: React.ReactElement;
+  buttonContent: React.ReactElement;
+  classNames?: {
+    button?: string;
+  };
 }) {
   const field = useFieldContext<CalendarDate>();
 
   return (
     <PopoverCalendar
+      buttonContent={buttonContent}
+      classNames={classNames}
       defaultValue={field.state.value}
-      trigger={trigger}
       onChange={(value) => field.handleChange(value)}
     />
   );
