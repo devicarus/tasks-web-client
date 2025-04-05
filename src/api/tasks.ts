@@ -3,8 +3,24 @@ import { parseDate } from "@internationalized/date";
 import { axiosPrivate } from "@/util/axios";
 import { TaskDto, Task } from "@/types";
 
-export const fetchTasks = async (): Promise<[Task]> => {
-  const response = await axiosPrivate.get("/tasks").catch((error) => {
+export const fetchTasks = async (
+  sortBy?: string,
+  sortDir?: string,
+  filter?: string,
+): Promise<[Task]> => {
+  let query = "/tasks";
+
+  if (sortBy || sortDir || filter) {
+    const queryParams = new URLSearchParams();
+
+    if (sortBy) queryParams.append("sortBy", sortBy);
+    if (sortDir) queryParams.append("sortDir", sortDir);
+    if (filter) queryParams.append("filter", filter);
+
+    query += `?${queryParams.toString()}`;
+  }
+
+  const response = await axiosPrivate.get(query).catch((error) => {
     throw new Error(error?.response?.data?.error || "An error occurred");
   });
 
@@ -17,14 +33,14 @@ export const fetchTasks = async (): Promise<[Task]> => {
   return tasks;
 };
 
-export const patchTask = async (task: Task): Promise<void> => {
+export const updateTask = async (task: Task): Promise<void> => {
   const taskDto: TaskDto = {
     ...task,
     dueDate: task.dueDate?.toString() || null,
     deadlineDate: task.deadlineDate?.toString() || null,
   };
 
-  await axiosPrivate.post(`/tasks/${task.id}`, taskDto).catch((error) => {
+  await axiosPrivate.put(`/tasks/${task.id}`, taskDto).catch((error) => {
     throw new Error(error?.response?.data?.error || "An error occurred");
   });
 };

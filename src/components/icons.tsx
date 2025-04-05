@@ -405,3 +405,36 @@ export const SolarCloseSquareBold: React.FC<IconProps> = ({
     </svg>
   );
 };
+
+export const SolarCalendarDateLinear: React.FC<
+  IconProps & { date?: number }
+> = ({ date = 10, size = 24, width, height, ...props }) => {
+  return (
+    <svg
+      fill="none"
+      height={size || height}
+      viewBox="0 0 24 24"
+      width={size || width}
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <g fill="none" stroke="currentColor" strokeWidth={1.5}>
+        <path d="M2 12c0-3.771 0-5.657 1.172-6.828S6.229 4 10 4h4c3.771 0 5.657 0 6.828 1.172S22 8.229 22 12v2c0 3.771 0 5.657-1.172 6.828S17.771 22 14 22h-4c-3.771 0-5.657 0-6.828-1.172S2 17.771 2 14z" />
+        <path d="M7 4V2.5M17 4V2.5" strokeLinecap="round" />
+        <path d="M2.5 9h19" />
+        <text
+          fill="currentColor"
+          fontFamily="'DIN Round Pro', 'Arial Rounded MT Bold', sans-serif"
+          fontSize="8"
+          fontWeight="900"
+          strokeWidth="0.3"
+          textAnchor="middle"
+          x="12"
+          y="18"
+        >
+          {date}
+        </text>
+      </g>
+    </svg>
+  );
+};

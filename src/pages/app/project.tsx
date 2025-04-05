@@ -1,19 +1,17 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Button } from "@heroui/button";
-import { today, getLocalTimeZone } from "@internationalized/date";
 
 import Task from "@/components/task";
 import { fetchTasks, createTask } from "@/api/tasks";
 import { SolarAddCircleBold } from "@/components/icons";
 
-export default function AppHomePage() {
+export default function AppProjectPage() {
   const [selected, setSelected] = useState<number | null>(null);
 
   const { data, refetch } = useQuery({
     queryKey: ["tasks"],
-    queryFn: () =>
-      fetchTasks("deadlineDate", "asc", `due<='${today(getLocalTimeZone())}'`),
+    queryFn: () => fetchTasks(),
   });
 
   const { mutate } = useMutation({

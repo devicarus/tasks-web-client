@@ -13,7 +13,7 @@ import {
   SolarCloseSquareBold as CloseIcon,
 } from "@/components/icons";
 import { Task as TaskType } from "@/types";
-import { patchTask, deleteTask } from "@/api/tasks";
+import { updateTask, deleteTask } from "@/api/tasks";
 import { withForm, useAppForm } from "@/hooks/form";
 import { formatDate } from "@/util";
 
@@ -40,7 +40,7 @@ export default function Task({
   });
 
   const patchMutation = useMutation({
-    mutationFn: patchTask,
+    mutationFn: updateTask,
   });
 
   const deleteMutation = useMutation({

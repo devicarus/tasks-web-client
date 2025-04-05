@@ -1,25 +1,31 @@
 import { Link } from "@heroui/link";
+import { Button } from "@heroui/button";
 import { useRouterState } from "@tanstack/react-router";
+import { useQuery, useMutation } from "@tanstack/react-query";
 
 import {
   Logo,
-  SolarHome2Linear as HomeIcon,
+  SolarCalendarDateLinear as TodayIcon,
   SolarWidget2Linear as ProjectsIcon,
-  SolarChecklistMinimalisticLinear as TasksIcon,
   SolarSettingsLinear as SettingsIcon,
-} from "./icons";
-import { ThemeSwitch } from "./theme-switch";
+  SolarAddCircleBold as AddIcon,
+} from "@/components/icons";
+import { ThemeSwitch } from "@/components/theme-switch";
+import { fetchProjects, createProject } from "@/api/projects";
 
 type SidebarLinkProps = {
   href: string;
-  icon: React.ElementType;
+  startContent: React.ReactNode;
   label: string;
   isActive?: boolean | undefined;
 };
 
-function SidebarLink({ href, icon, label, isActive }: SidebarLinkProps) {
-  const Icon = icon;
-
+function SidebarLink({
+  href,
+  startContent,
+  label,
+  isActive,
+}: SidebarLinkProps) {
   return (
     <Link
       className={
@@ -30,7 +36,7 @@ function SidebarLink({ href, icon, label, isActive }: SidebarLinkProps) {
       }
       href={href}
     >
-      <Icon className="text-foreground" />
+      {startContent}
       <span className="flex-1 truncate text-small font-medium text-foreground">
         {label}
       </span>
@@ -42,12 +48,17 @@ export default function Sidebar() {
   const router = useRouterState();
   const currentPath = router.location.pathname;
 
-  const items = [
-    { label: "Home", icon: HomeIcon, href: "/app" },
-    { label: "Projects", icon: ProjectsIcon, href: "/app/projects" },
-    { label: "Tasks", icon: TasksIcon, href: "/app/tasks" },
-    { label: "Settings", icon: SettingsIcon, href: "/app/settings" },
-  ];
+  const projectsQuery = useQuery({
+    queryKey: ["projects"],
+    queryFn: fetchProjects,
+  });
+
+  const createMutation = useMutation({
+    mutationFn: createProject,
+    onSuccess: () => {
+      projectsQuery.refetch();
+    },
+  });
 
   return (
     <div className="h-screen min-h-[48rem] overflow-y-scroll">
@@ -64,19 +75,74 @@ export default function Sidebar() {
           <ThemeSwitch />
         </div>
         <div className="overflow-y-auto pt-12">
-          <div className="w-full relative flex flex-col gap-1 p-1 overflow-clip list-none">
-            <nav className="w-full flex flex-col gap-0.5 outline-none items-center">
-              {items.map(({ label, icon, href }) => (
-                <SidebarLink
-                  key={href}
-                  href={href}
-                  icon={icon}
-                  isActive={currentPath == href}
-                  label={label}
-                />
-              ))}
-            </nav>
-          </div>
+          <nav>
+            <ul className="flex flex-col gap-4">
+              <li>
+                <section>
+                  <span className="pl-1 text-tiny text-foreground-500">
+                    Overview
+                  </span>
+                  <ul>
+                    <li>
+                      <SidebarLink
+                        href="/app"
+                        isActive={currentPath == "/app"}
+                        label="Today"
+                        startContent={
+                          <TodayIcon
+                            className="text-foreground"
+                            date={new Date().getDate()}
+                          />
+                        }
+                      />
+                    </li>
+                    <li>
+                      <SidebarLink
+                        href="/app/settings"
+                        isActive={currentPath == "/app/settings"}
+                        label="Settings"
+                        startContent={
+                          <SettingsIcon className="text-foreground" />
+                        }
+                      />
+                    </li>
+                  </ul>
+                </section>
+              </li>
+              <li>
+                <section>
+                  <span className="pl-1 text-tiny text-foreground-500">
+                    Projects
+                  </span>
+                  <ul>
+                    {projectsQuery.data &&
+                      projectsQuery.data.map(({ id, name }) => (
+                        <li key={id}>
+                          <SidebarLink
+                            href={`/app/projects/${id}`}
+                            isActive={currentPath == `/app/projects/${id}`}
+                            label={name}
+                            startContent={
+                              <ProjectsIcon className="text-foreground" />
+                            }
+                          />
+                        </li>
+                      ))}
+                    <li>
+                      <Button
+                        className="w-full mt-1"
+                        startContent={<AddIcon />}
+                        variant="ghost"
+                        onPress={() => createMutation.mutate()}
+                      >
+                        Create Project
+                      </Button>
+                    </li>
+                  </ul>
+                </section>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </div>

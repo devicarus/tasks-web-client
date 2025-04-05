@@ -22,4 +22,8 @@ export type Task = {
   dueDate: CalendarDate | null;
   deadlineDate: CalendarDate | null;
 };
+
+export type Project = {
+  id: number;
+  name: string;
 };
