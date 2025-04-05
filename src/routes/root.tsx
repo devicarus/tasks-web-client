@@ -1,6 +1,6 @@
 import { Outlet, createRootRouteWithContext } from "@tanstack/react-router";
 
-import { useAuth } from "@/providers/authProvider";
+import { useAuth } from "@/feature/auth/provider";
 import { HeroProvider } from "@/providers/heroProvider";
 
 const RootComponent = () => (

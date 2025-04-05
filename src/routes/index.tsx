@@ -1,12 +1,11 @@
 import { createRoute, redirect } from "@tanstack/react-router";
 
-import AppLayout from "@/layouts/app";
-import BlankLayout from "@/layouts/blank";
-import LandingPage from "@/pages/landing";
-import LoginPage from "@/pages/login";
 import rootRoute from "@/routes/root";
-import AppHomePage from "@/pages/app/home";
-import AppSettingsPage from "@/pages/app/settings";
+import AppLayout from "@/shared/layouts/app";
+import BlankLayout from "@/shared/layouts/blank";
+import LoginPage from "@/feature/auth/pages/login";
+import AppTodayPage from "@/feature/task/pages/today";
+import AppProjectPage from "@/feature/project/page";
 
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -14,12 +13,6 @@ const indexRoute = createRoute({
   beforeLoad: () => {
     throw redirect({ to: "/app" });
   },
-});
-
-const landingRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: "/landing",
-  component: LandingPage,
 });
 
 const blankLayout = createRoute({
@@ -59,21 +52,20 @@ const appRoute = createRoute({
 
 const appHomeRoute = createRoute({
   getParentRoute: () => appRoute,
-  component: AppHomePage,
+  component: AppTodayPage,
   path: "/",
 });
 
-const appSettingsRoute = createRoute({
+const appProjectRoute = createRoute({
   getParentRoute: () => appRoute,
-  component: AppSettingsPage,
-  path: "/settings",
+  component: AppProjectPage,
+  path: "/project/$id",
 });
 
 const routeTree = rootRoute.addChildren([
   indexRoute,
   blankLayout.addChildren([loginRoute]),
-  appRoute.addChildren([appHomeRoute, appSettingsRoute]),
-  landingRoute,
+  appRoute.addChildren([appHomeRoute, appProjectRoute]),
 ]);
 
 export default routeTree;
