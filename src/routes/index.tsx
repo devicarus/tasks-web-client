@@ -25,16 +25,21 @@ const loginRoute = createRoute({
   getParentRoute: () => blankLayout,
   component: LoginPage,
   path: "/login",
-  beforeLoad: ({ context }) => {
+  beforeLoad: ({ context, search }) => {
     if (context.auth.isAuthenticated) {
       throw redirect({
-        to: "/app",
+        to: search.redirect ?? "/app",
       });
     }
   },
+  validateSearch: (search: { redirect?: string }) => {
+    return {
+      redirect: search.redirect,
+    };
+  },
 });
 
-const appRoute = createRoute({
+export const appRoute = createRoute({
   getParentRoute: () => rootRoute,
   component: AppLayout,
   path: "/app",

@@ -5,7 +5,7 @@ import { Form } from "@heroui/form";
 import { Alert } from "@heroui/alert";
 import { useForm } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 
 import { title } from "@/shared/components/primitives";
 import { useAuth } from "@/feature/auth/provider";
@@ -14,6 +14,7 @@ import { Credentials } from "@/feature/auth/model";
 
 export default function LoginPage() {
   const { setToken, isAuthenticated } = useAuth();
+  const search = useSearch({ from: "/blankLayout/login" });
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
@@ -26,7 +27,7 @@ export default function LoginPage() {
   useEffect(() => {
     if (isAuthenticated) {
       navigate({
-        to: "/app",
+        to: search.redirect ?? "/app",
       });
     }
   }, [isAuthenticated, navigate]);
