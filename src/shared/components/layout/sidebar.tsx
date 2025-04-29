@@ -120,7 +120,7 @@ export default function Sidebar() {
                           <SidebarLink
                             href={`/app/project/${id}`}
                             isActive={currentPath == `/app/project/${id}`}
-                            label={name}
+                            label={name || "New Project"}
                             startContent={
                               <ProjectsIcon className="text-foreground" />
                             }
