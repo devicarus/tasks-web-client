@@ -1,6 +1,5 @@
-import { Link } from "@heroui/link";
 import { Button } from "@heroui/button";
-import { useRouterState } from "@tanstack/react-router";
+import { useRouterState, Link } from "@tanstack/react-router";
 import { useQuery, useMutation } from "@tanstack/react-query";
 
 import {
@@ -34,7 +33,7 @@ function SidebarLink({
           ? "bg-default-100 opacity-100"
           : "hover:transition-colors hover:bg-default/40 hover:text-default-foreground")
       }
-      href={href}
+      to={href}
     >
       {startContent}
       <span className="flex-1 truncate text-small font-medium text-foreground">
@@ -67,7 +66,7 @@ export default function Sidebar() {
           <Link
             className="flex justify-start items-center gap-1"
             color="foreground"
-            href="/"
+            to="/"
           >
             <Logo />
             <p className="font-bold text-inherit">Tasks</p>
