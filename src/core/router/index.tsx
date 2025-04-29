@@ -1,11 +1,11 @@
 import { createRoute, redirect } from "@tanstack/react-router";
 
-import rootRoute from "@/routes/root";
+import rootRoute from "@/core/router/root";
 import AppLayout from "@/shared/layouts/app";
 import BlankLayout from "@/shared/layouts/blank";
 import LoginPage from "@/feature/auth/pages/login";
 import AppTodayPage from "@/feature/task/pages/today";
-import AppProjectPage from "@/feature/project/page";
+import { appProjectRoute } from "@/feature/project/routes";
 
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -59,12 +59,6 @@ const appHomeRoute = createRoute({
   getParentRoute: () => appRoute,
   component: AppTodayPage,
   path: "/",
-});
-
-const appProjectRoute = createRoute({
-  getParentRoute: () => appRoute,
-  component: AppProjectPage,
-  path: "/project/$id",
 });
 
 const routeTree = rootRoute.addChildren([
