@@ -9,10 +9,7 @@ interface InputFieldProps extends InputProps {
 
 export default function InputField({
   autoFocusOnEmpty,
-  variant,
-  size,
-  placeholder,
-  onKeyDown,
+  ...rest
 }: InputFieldProps) {
   const field = useFieldContext<string>();
 
@@ -20,12 +17,9 @@ export default function InputField({
     <Input
       autoFocus={autoFocusOnEmpty && field.state.value == ""}
       defaultValue={field.state.value}
-      placeholder={placeholder}
-      size={size}
-      variant={variant}
       onBlur={field.handleBlur}
-      onKeyDown={onKeyDown}
-      onValueChange={(value) => field.handleChange(value)}
+      onValueChange={field.handleChange}
+      {...rest}
     />
   );
 }
