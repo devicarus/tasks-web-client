@@ -1,5 +1,5 @@
 import { Button } from "@heroui/button";
-import { useRouterState, Link } from "@tanstack/react-router";
+import { useRouterState, Link, redirect, useNavigate } from "@tanstack/react-router";
 import { useQuery, useMutation } from "@tanstack/react-query";
 
 import {
@@ -46,6 +46,7 @@ function SidebarLink({
 export default function Sidebar() {
   const router = useRouterState();
   const currentPath = router.location.pathname;
+  const navigate = useNavigate();
 
   const projectsQuery = useQuery({
     queryKey: ["projects"],
@@ -54,8 +55,11 @@ export default function Sidebar() {
 
   const createMutation = useMutation({
     mutationFn: createProject,
-    onSuccess: () => {
+    onSuccess: ({ id }) => {
       projectsQuery.refetch();
+      navigate({
+        to: `/app/project/${id}`,
+      });
     },
   });
 
