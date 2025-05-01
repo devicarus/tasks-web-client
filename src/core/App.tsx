@@ -1,10 +1,11 @@
 import { createRouter, RouterProvider } from "@tanstack/react-router";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 
 import { useAuth } from "@/feature/auth/provider.tsx";
 import routeTree from "@/core/router";
+import { getQueryClient } from "@/shared/query-client";
 
-const queryClient = new QueryClient();
+const queryClient = getQueryClient();
 
 const router = createRouter({
   routeTree,
