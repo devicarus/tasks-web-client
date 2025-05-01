@@ -1,5 +1,5 @@
 import { Button } from "@heroui/button";
-import { useRouterState, Link, redirect, useNavigate } from "@tanstack/react-router";
+import { useRouterState, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useMutation } from "@tanstack/react-query";
 
 import {
