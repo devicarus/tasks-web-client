@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Button } from "@heroui/button";
+import { useHotkeys } from "react-hotkeys-hook";
 
 import TaskComponent from "@/feature/task/task";
 import { SolarAddCircleBold } from "@/shared/components/icons";
 import { Task } from "@/feature/task/model";
+import { SHORTCUTS } from "@/core/config/shortcuts";
 
 interface TaskViewProps {
   tasks: Task[];
@@ -13,6 +15,10 @@ interface TaskViewProps {
 
 export default function TaskView({ tasks, onAdd, onDelete }: TaskViewProps) {
   const [selected, setSelected] = useState<number | null>(null);
+
+  const add = async () => setSelected((await onAdd()).id);
+
+  useHotkeys(SHORTCUTS.CREATE_TASK, add);
 
   return (
     <>
@@ -43,7 +49,7 @@ export default function TaskView({ tasks, onAdd, onDelete }: TaskViewProps) {
         isIconOnly
         className="absolute bottom-16 right-16 text-primary bg-transparent"
         size="lg"
-        onPress={async () => setSelected((await onAdd()).id)}
+        onPress={add}
       >
         <SolarAddCircleBold size={48} />
       </Button>
