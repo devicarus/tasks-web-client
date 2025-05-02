@@ -45,10 +45,6 @@ export default function AppProjectPage() {
       queryClient.invalidateQueries({
         queryKey: ["projects"],
       });
-      queryClient.invalidateQueries({
-        queryKey: ["project", { projectId }],
-      });
-      setEditingName(false);
     },
   });
 
@@ -68,17 +64,21 @@ export default function AppProjectPage() {
     defaultValues: {
       name: projectQuery.data.name,
     },
-    onSubmit: ({ value }) =>
-      updateProjectNameMutation.mutateAsync({
+    onSubmit: async ({ value }) => {
+      await updateProjectNameMutation.mutateAsync({
         projectId,
         projectName: value.name,
-      }),
+      });
+      await projectQuery.refetch();
+      setEditingName(false);
+    },
   });
 
   useEffect(() => {
     setEditingName(
       projectQuery.data.name == "" || projectQuery.data.name == undefined,
     );
+    projectNameForm.reset();
   }, [projectQuery.data.name]);
 
   useHotkeys(SHORTCUTS.DELETE_PROJECT, () =>
