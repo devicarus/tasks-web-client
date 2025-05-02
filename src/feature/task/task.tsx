@@ -114,7 +114,7 @@ const TaskHeader = withForm({
                 size="sm"
                 variant="plain"
                 onKeyDown={(e) => {
-                  if (e.code === "Backspace" && state.value == "") onDelete();
+                  if (e.code === "Backspace" && !state.value) onDelete();
                 }}
               />
             )}
