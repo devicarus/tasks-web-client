@@ -6,6 +6,7 @@ import {
   mapProjectDtoToModel,
   mapProjectModelToDto,
 } from "@/feature/project/model";
+import { CreateTaskDto, Task } from "@/feature/task/model";
 
 export const fetchProjects = async (): Promise<[ProjectBrief]> => {
   const response = await axiosPrivate
@@ -63,4 +64,17 @@ export const deleteProject = async (projectId: string): Promise<void> => {
   await axiosPrivate.delete(`/projects/${projectId}`).catch((error) => {
     throw new Error(error?.response?.data?.error || "An error occurred");
   });
+};
+
+export const createProjectTask = async (
+  projectId: string,
+  task: CreateTaskDto = {},
+): Promise<Task> => {
+  const response = await axiosPrivate
+    .post(`/projects/${projectId}/tasks`, task)
+    .catch((error) => {
+      throw new Error(error?.response?.data?.error || "An error occurred");
+    });
+
+  return response.data;
 };

@@ -12,21 +12,25 @@ import {
 import { useHotkeys } from "react-hotkeys-hook";
 
 import { SHORTCUTS } from "@/core/config/shortcuts";
-import { Button } from "@/shared/components/variants/button";
-import Task from "@/feature/task/task";
-import { title } from "@/shared/components/primitives";
-import { appProjectRoute } from "@/feature/project/routes";
-import { projectQueryOptions } from "@/feature/project/queries";
 import { useAppForm } from "@/shared/hooks/form";
-import { deleteProject, updateProjectName } from "@/feature/project/api";
+import { getQueryClient } from "@/shared/query-client";
+import { Button } from "@/shared/components/variants/button";
+import { title } from "@/shared/components/primitives";
 import {
   SolarMenuDotsLinear,
   SolarPenLinear,
   SolarTrashBinTrashLinear,
   SolarUnreadLinear,
 } from "@/shared/components/icons";
-import { getQueryClient } from "@/shared/query-client";
 import { formatShortcut } from "@/shared/util/formatShortcut";
+import { appProjectRoute } from "@/feature/project/routes";
+import { projectQueryOptions } from "@/feature/project/queries";
+import {
+  createProjectTask,
+  deleteProject,
+  updateProjectName,
+} from "@/feature/project/api";
+import TaskView from "@/feature/task/task-view";
 
 export default function AppProjectPage() {
   const navigate = useNavigate();
@@ -34,7 +38,6 @@ export default function AppProjectPage() {
   const { projectId } = appProjectRoute.useParams();
   const projectQuery = useSuspenseQuery(projectQueryOptions(projectId));
 
-  const [selected, setSelected] = useState<number | null>(null);
   const [editingName, setEditingName] = useState<boolean>(
     !!projectQuery.data.name,
   );
@@ -58,6 +61,11 @@ export default function AppProjectPage() {
         to: "/app",
       });
     },
+  });
+
+  const createProjectTaskMutation = useMutation({
+    mutationFn: () => createProjectTask(projectId),
+    onSuccess: () => projectQuery.refetch(),
   });
 
   const projectNameForm = useAppForm({
@@ -88,12 +96,6 @@ export default function AppProjectPage() {
 
   return (
     <div className="max-w-md">
-      <div
-        className={`absolute inset-0 bg-background bg-opacity-50 backdrop-blur-sm transition-all duration-200 ${
-          selected ? "opacity-100 z-10" : "opacity-0 -z-10"
-        }`}
-      />
-
       <header className="h-[43px]">
         {editingName ? (
           <Form
@@ -163,23 +165,11 @@ export default function AppProjectPage() {
         )}
       </header>
       <Divider className="my-4" />
-      <div>
-        {projectQuery.data &&
-          projectQuery.data.tasks.map((task) => (
-            <Task
-              key={task.id}
-              className={selected == task.id ? "z-20" : "z-0"}
-              isOpen={selected == task.id}
-              task={task}
-              onClose={() => setSelected(null)}
-              onDelete={() => {
-                projectQuery.refetch();
-                setSelected(null);
-              }}
-              onOpen={() => setSelected(task.id)}
-            />
-          ))}
-      </div>
+      <TaskView
+        tasks={projectQuery.data.tasks}
+        onAdd={() => createProjectTaskMutation.mutateAsync()}
+        onDelete={() => projectQuery.refetch()}
+      />
     </div>
   );
 }
