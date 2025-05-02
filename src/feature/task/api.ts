@@ -1,4 +1,10 @@
-import { TaskDto, Task, mapTaskDtoToModel, mapTaskModelToDto } from "./model";
+import {
+  CreateTaskDto,
+  TaskDto,
+  Task,
+  mapTaskDtoToModel,
+  mapTaskModelToDto,
+} from "./model";
 
 import { axiosPrivate } from "@/shared/util/axios";
 
@@ -34,8 +40,8 @@ export const updateTask = async (task: Task): Promise<void> => {
   });
 };
 
-export const createTask = async (): Promise<Task> => {
-  const response = await axiosPrivate.post("/tasks", {}).catch((error) => {
+export const createTask = async (task: CreateTaskDto = {}): Promise<Task> => {
+  const response = await axiosPrivate.post("/tasks", task).catch((error) => {
     throw new Error(error?.response?.data?.error || "An error occurred");
   });
 
