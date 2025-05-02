@@ -15,7 +15,7 @@ export default function InputField({
 
   return (
     <Input
-      autoFocus={autoFocusOnEmpty && field.state.value == ""}
+      autoFocus={autoFocusOnEmpty && !field.state.value}
       defaultValue={field.state.value}
       onBlur={field.handleBlur}
       onValueChange={field.handleChange}
