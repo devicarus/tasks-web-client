@@ -8,6 +8,8 @@ import {
   SolarWidget2Linear as ProjectsIcon,
   SolarSettingsLinear as SettingsIcon,
   SolarAddCircleBold as AddIcon,
+  SolarCalendarMarkLinear as UpcommingIcon,
+  SolarCalendarMinimalisticLinear as AnytimeIcon,
 } from "@/shared/components/icons";
 import { ThemeSwitch } from "@/shared/components/theme-switch";
 import { fetchProjects, createProject } from "@/feature/project/api";
@@ -96,6 +98,26 @@ export default function Sidebar() {
                             className="text-foreground"
                             date={new Date().getDate()}
                           />
+                        }
+                      />
+                    </li>
+                    <li>
+                      <SidebarLink
+                        href="/app/upcomming"
+                        isActive={currentPath == "/app/upcomming"}
+                        label="Upcomming"
+                        startContent={
+                          <UpcommingIcon className="text-foreground" />
+                        }
+                      />
+                    </li>
+                    <li>
+                      <SidebarLink
+                        href="/app/anytime"
+                        isActive={currentPath == "/app/anytime"}
+                        label="Anytime"
+                        startContent={
+                          <AnytimeIcon className="text-foreground" />
                         }
                       />
                     </li>

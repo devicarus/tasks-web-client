@@ -6,6 +6,8 @@ import BlankLayout from "@/shared/layouts/blank";
 import LoginPage from "@/feature/auth/pages/login";
 import AppTodayPage from "@/feature/task/pages/today";
 import { appProjectRoute } from "@/feature/project/routes";
+import AppAnytimePage from "@/feature/task/pages/anytime";
+import AppUpcommingPage from "@/feature/task/pages/upcomming";
 
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -61,10 +63,27 @@ const appHomeRoute = createRoute({
   path: "/",
 });
 
+const appUpcommingRoute = createRoute({
+  getParentRoute: () => appRoute,
+  component: AppUpcommingPage,
+  path: "/upcomming",
+});
+
+const appAnytimeRoute = createRoute({
+  getParentRoute: () => appRoute,
+  component: AppAnytimePage,
+  path: "/anytime",
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   blankLayout.addChildren([loginRoute]),
-  appRoute.addChildren([appHomeRoute, appProjectRoute]),
+  appRoute.addChildren([
+    appHomeRoute,
+    appUpcommingRoute,
+    appAnytimeRoute,
+    appProjectRoute,
+  ]),
 ]);
 
 export default routeTree;
