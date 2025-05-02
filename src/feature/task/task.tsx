@@ -124,9 +124,9 @@ const TaskHeader = withForm({
             <form.Subscribe selector={(state) => state.values.done}>
               {(done) => (
                 <span
-                  className={`ml-2 truncate ${done ? "line-through text-default-400" : ""}`}
+                  className={`ml-2 truncate ${done ? "line-through text-default-400" : ""} ${form.state.values.name ? "" : "text-default-400"}`}
                 >
-                  {form.state.values.name}
+                  {form.state.values.name || "New To-Do"}
                 </span>
               )}
             </form.Subscribe>
