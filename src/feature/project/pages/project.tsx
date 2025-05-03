@@ -12,7 +12,7 @@ import {
 import { useHotkeys } from "react-hotkeys-hook";
 
 import { SHORTCUTS } from "@/core/config/shortcuts";
-import { useAppForm } from "@/shared/hooks/form";
+import { useAppForm } from "@/shared/hooks/useFormTools";
 import { getQueryClient } from "@/shared/query-client";
 import { Button } from "@/shared/components/variants/button";
 import { title } from "@/shared/components/primitives";
