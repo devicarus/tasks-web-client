@@ -1,6 +1,6 @@
 import { today, getLocalTimeZone } from "@internationalized/date";
 
-import SmartTaskView from "../smart-task-view";
+import SmartTaskView from "../components/SmartTaskView";
 
 export default function AppUpcommingPage() {
   return (

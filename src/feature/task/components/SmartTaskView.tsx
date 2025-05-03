@@ -2,7 +2,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 
 import { fetchTasks, createTask } from "@/feature/task/api";
 import { CreateTaskDto } from "@/feature/task/model";
-import TaskView from "@/feature/task/task-view";
+import TaskView from "@/feature/task/components/TaskView";
 
 interface SmartTaskViewProps {
   filter?: string;

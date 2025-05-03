@@ -30,7 +30,7 @@ import {
   deleteProject,
   updateProjectName,
 } from "@/feature/project/api";
-import TaskView from "@/feature/task/task-view";
+import TaskView from "@/feature/task/components/TaskView";
 
 export default function AppProjectPage() {
   const navigate = useNavigate();

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@heroui/button";
 import { useHotkeys } from "react-hotkeys-hook";
 
-import TaskComponent from "@/feature/task/task";
+import TaskComponent from "@/feature/task/components/Task";
 import { SolarAddCircleBold } from "@/shared/components/icons";
 import { Task } from "@/feature/task/model";
 import { SHORTCUTS } from "@/core/config/shortcuts";

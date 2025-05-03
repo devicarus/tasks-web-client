@@ -1,4 +1,4 @@
-import SmartTaskView from "../smart-task-view";
+import SmartTaskView from "../components/SmartTaskView";
 
 export default function AppAnytimePage() {
   return <SmartTaskView filter={`due=NULL`} />;
