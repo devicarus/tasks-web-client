@@ -8,7 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 
 import { title } from "@/shared/components/primitives";
-import { useAuth } from "@/feature/auth/provider";
+import { useAuth } from "@/shared/hooks/useAuth";
 import { fetchAccessToken } from "@/feature/auth/api";
 import { Credentials } from "@/feature/auth/model";
 

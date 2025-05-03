@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import App from "@/core/App";
-import { AuthProvider } from "@/feature/auth/provider.tsx";
+import { AuthProvider } from "@/core/providers/AuthProvider";
 import "@/core/globals.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

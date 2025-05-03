@@ -1,11 +1,4 @@
-import {
-  createContext,
-  useMemo,
-  useState,
-  useContext,
-  useEffect,
-  ReactNode,
-} from "react";
+import { useMemo, useState, useEffect, ReactNode } from "react";
 
 import {
   axiosPrivate,
@@ -14,16 +7,7 @@ import {
   ejectInterceptor,
 } from "@/shared/util";
 import { refreshAccessToken } from "@/feature/auth/api";
-
-export type AuthContextType = {
-  isAuthenticated: boolean;
-  setToken: (token: string) => void;
-};
-
-export const AuthContext = createContext<AuthContextType>({
-  isAuthenticated: false,
-  setToken: () => {},
-});
+import { AuthContext } from "@/shared/AuthContext";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
@@ -61,8 +45,4 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
-};
-
-export const useAuth = (): AuthContextType => {
-  return useContext(AuthContext);
 };

@@ -1,7 +1,7 @@
 import { Outlet, createRootRouteWithContext } from "@tanstack/react-router";
 import { QueryClient } from "@tanstack/react-query";
 
-import { useAuth } from "@/feature/auth/provider";
+import { useAuth } from "@/shared/hooks/useAuth";
 import { HeroUIProvider } from "@/core/providers/HeroUIProvider";
 
 interface RouterContext {
