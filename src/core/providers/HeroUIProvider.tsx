@@ -1,6 +1,6 @@
 import type { NavigateOptions, ToOptions } from "@tanstack/react-router";
 
-import { HeroUIProvider } from "@heroui/system";
+import { HeroUIProvider as Provider } from "@heroui/system";
 import { useRouter } from "@tanstack/react-router";
 
 declare module "@react-types/shared" {
@@ -10,15 +10,15 @@ declare module "@react-types/shared" {
   }
 }
 
-export const HeroProvider = ({ children }: { children: React.ReactNode }) => {
+export const HeroUIProvider = ({ children }: { children: React.ReactNode }) => {
   let router = useRouter();
 
   return (
-    <HeroUIProvider
+    <Provider
       navigate={(to, options) => router.navigate({ to, ...options })}
       useHref={(to) => router.buildLocation({ to }).href}
     >
       {children}
-    </HeroUIProvider>
+    </Provider>
   );
 };
