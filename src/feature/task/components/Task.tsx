@@ -168,6 +168,9 @@ const TaskBody = withForm({
                         <CalendarIcon size={18} /> {formatDate(state.value!)}
                       </>
                     }
+                    buttonProps={{
+                      size: "sm",
+                    }}
                     classNames={{
                       button: "rounded-none rounded-l-lg",
                     }}
@@ -194,6 +197,9 @@ const TaskBody = withForm({
                         <FlagIconFilled size={18} /> {formatDate(state.value!)}
                       </>
                     }
+                    buttonProps={{
+                      size: "sm",
+                    }}
                     classNames={{
                       button: "rounded-none rounded-l-lg",
                     }}
@@ -217,6 +223,11 @@ const TaskBody = withForm({
               {({ PopoverCalendar }) => (
                 <PopoverCalendar
                   buttonContent={<CalendarIcon size={18} />}
+                  buttonProps={{
+                    size: "md",
+                    isIconOnly: true,
+                    disableRipple: true,
+                  }}
                   classNames={{ button: "bg-transparent" }}
                 />
               )}
@@ -227,6 +238,11 @@ const TaskBody = withForm({
               {({ PopoverCalendar }) => (
                 <PopoverCalendar
                   buttonContent={<FlagIcon size={18} />}
+                  buttonProps={{
+                    size: "md",
+                    isIconOnly: true,
+                    disableRipple: true,
+                  }}
                   classNames={{ button: "bg-transparent" }}
                 />
               )}

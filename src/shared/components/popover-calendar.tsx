@@ -1,8 +1,9 @@
 import { useRef, useState, useEffect } from "react";
 import { Popover, PopoverTrigger, PopoverContent } from "@heroui/popover";
-import { Button } from "@heroui/button";
 import { Calendar } from "@heroui/calendar";
 import { CalendarDate, today, getLocalTimeZone } from "@internationalized/date";
+
+import { Button, ButtonProps } from "@/shared/components/variants/button";
 
 type PopoverCalendarProps = {
   classNames?: {
@@ -10,6 +11,7 @@ type PopoverCalendarProps = {
   };
   defaultValue?: CalendarDate;
   buttonContent: React.ReactElement;
+  buttonProps?: ButtonProps;
   onChange?: (value: CalendarDate) => void;
 };
 
@@ -17,6 +19,7 @@ export default function PopoverCalendar({
   classNames,
   defaultValue,
   buttonContent,
+  buttonProps,
   onChange,
 }: PopoverCalendarProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -43,7 +46,7 @@ export default function PopoverCalendar({
         onOpenChange={setOpen}
       >
         <PopoverTrigger>
-          <Button className={classNames?.button} size="sm">
+          <Button className={classNames?.button} {...buttonProps}>
             {buttonContent}
           </Button>
         </PopoverTrigger>
