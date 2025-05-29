@@ -121,7 +121,7 @@ export default function Sidebar() {
                         }
                       />
                     </li>
-                    <li>
+                    {/*<li>
                       <SidebarLink
                         href="/app/settings"
                         isActive={currentPath == "/app/settings"}
@@ -130,7 +130,7 @@ export default function Sidebar() {
                           <SettingsIcon className="text-foreground" />
                         }
                       />
-                    </li>
+                    </li>*/}
                   </ul>
                 </section>
               </li>
