@@ -14,7 +14,7 @@ import { Credentials } from "@/feature/auth/model";
 
 export default function LoginPage() {
   const { setToken, isAuthenticated } = useAuth();
-  const search = useSearch({ from: "/blankLayout/login" });
+  const search = useSearch({ from: "/authRoute/login" });
   const navigate = useNavigate();
   const [error, setError] = useState("");
 

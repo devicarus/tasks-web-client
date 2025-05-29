@@ -1,0 +1,1 @@
+export const formatTitle = (title?: string) => title ? `${title} | Tasks` : "Tasks"

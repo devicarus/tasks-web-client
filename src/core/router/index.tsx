@@ -3,11 +3,13 @@ import { createRoute, redirect } from "@tanstack/react-router";
 import rootRoute from "@/core/router/root";
 import AppLayout from "@/shared/layouts/app";
 import BlankLayout from "@/shared/layouts/blank";
-import LoginPage from "@/feature/auth/pages/login";
-import AppTodayPage from "@/feature/task/pages/today";
+import { loginRoute } from "@/feature/auth/routes";
 import { appProjectRoute } from "@/feature/project/routes";
-import AppAnytimePage from "@/feature/task/pages/anytime";
-import AppUpcommingPage from "@/feature/task/pages/upcomming";
+import {
+  appTodayRoute,
+  appUpcommingRoute,
+  appAnytimeRoute,
+} from "@/feature/task/routes";
 
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -17,28 +19,10 @@ const indexRoute = createRoute({
   },
 });
 
-const blankLayout = createRoute({
+export const authRoute = createRoute({
   getParentRoute: () => rootRoute,
-  id: "blankLayout",
+  id: "authRoute",
   component: BlankLayout,
-});
-
-const loginRoute = createRoute({
-  getParentRoute: () => blankLayout,
-  component: LoginPage,
-  path: "/login",
-  beforeLoad: ({ context, search }) => {
-    if (context.auth.isAuthenticated) {
-      throw redirect({
-        to: search.redirect ?? "/app",
-      });
-    }
-  },
-  validateSearch: (search: { redirect?: string }) => {
-    return {
-      redirect: search.redirect,
-    };
-  },
 });
 
 export const appRoute = createRoute({
@@ -57,29 +41,11 @@ export const appRoute = createRoute({
   },
 });
 
-const appHomeRoute = createRoute({
-  getParentRoute: () => appRoute,
-  component: AppTodayPage,
-  path: "/",
-});
-
-const appUpcommingRoute = createRoute({
-  getParentRoute: () => appRoute,
-  component: AppUpcommingPage,
-  path: "/upcomming",
-});
-
-const appAnytimeRoute = createRoute({
-  getParentRoute: () => appRoute,
-  component: AppAnytimePage,
-  path: "/anytime",
-});
-
 const routeTree = rootRoute.addChildren([
   indexRoute,
-  blankLayout.addChildren([loginRoute]),
+  authRoute.addChildren([loginRoute]),
   appRoute.addChildren([
-    appHomeRoute,
+    appTodayRoute,
     appUpcommingRoute,
     appAnytimeRoute,
     appProjectRoute,
