@@ -356,17 +356,18 @@ export const SolarCalendarLinear = ({
   );
 };
 
-export const SolarAddCircleBold: React.FC<IconProps> = ({
+export const SolarAddCircleBold = ({
   size = 24,
+  trim = false,
   width,
   height,
   ...props
-}) => {
+}: IconProps & { trim?: boolean }) => {
   return (
     <svg
       fill="none"
       height={size || height}
-      viewBox="0 0 24 24"
+      viewBox={trim ? "2 2 20 20" : "0 0 24 24"}
       width={size || width}
       xmlns="http://www.w3.org/2000/svg"
       {...props}
