@@ -204,12 +204,12 @@ export const SolarHome2Linear = ({
   </svg>
 );
 
-export const SolarWidget2Linear: React.FC<IconProps> = ({
+export const SolarWidget2Linear = ({
   size = 24,
   width,
   height,
   ...props
-}) => {
+}: IconProps) => {
   return (
     <svg
       height={size || height}
@@ -228,12 +228,12 @@ export const SolarWidget2Linear: React.FC<IconProps> = ({
   );
 };
 
-export const SolarChecklistMinimalisticLinear: React.FC<IconProps> = ({
+export const SolarChecklistMinimalisticLinear = ({
   size = 24,
   width,
   height,
   ...props
-}) => {
+}: IconProps) => {
   return (
     <svg
       height={size || height}
@@ -252,12 +252,12 @@ export const SolarChecklistMinimalisticLinear: React.FC<IconProps> = ({
   );
 };
 
-export const SolarSettingsLinear: React.FC<IconProps> = ({
+export const SolarSettingsLinear = ({
   size = 24,
   width,
   height,
   ...props
-}) => {
+}: IconProps) => {
   return (
     <svg
       height={size || height}
@@ -274,12 +274,12 @@ export const SolarSettingsLinear: React.FC<IconProps> = ({
   );
 };
 
-export const SolarFlagLinear: React.FC<IconProps> = ({
+export const SolarFlagLinear = ({
   size = 24,
   width,
   height,
   ...props
-}) => {
+}: IconProps) => {
   return (
     <svg
       height={size || height}
@@ -299,12 +299,12 @@ export const SolarFlagLinear: React.FC<IconProps> = ({
   );
 };
 
-export const SolarFlagBold: React.FC<IconProps> = ({
+export const SolarFlagBold = ({
   size = 24,
   width,
   height,
   ...props
-}) => {
+}: IconProps) => {
   return (
     <svg
       height={size || height}
@@ -321,12 +321,12 @@ export const SolarFlagBold: React.FC<IconProps> = ({
   );
 };
 
-export const SolarCalendarLinear: React.FC<IconProps> = ({
+export const SolarCalendarLinear = ({
   size = 24,
   width,
   height,
   ...props
-}) => {
+}: IconProps) => {
   return (
     <svg
       height={size || height}
@@ -381,12 +381,12 @@ export const SolarAddCircleBold: React.FC<IconProps> = ({
   );
 };
 
-export const SolarCloseSquareBold: React.FC<IconProps> = ({
+export const SolarCloseSquareBold = ({
   size = 24,
   width,
   height,
   ...props
-}) => {
+}: IconProps) => {
   return (
     <svg
       fill="none"
@@ -406,9 +406,13 @@ export const SolarCloseSquareBold: React.FC<IconProps> = ({
   );
 };
 
-export const SolarCalendarDateLinear: React.FC<
-  IconProps & { date?: number }
-> = ({ date = 10, size = 24, width, height, ...props }) => {
+export const SolarCalendarDateLinear = ({
+  date = 10,
+  size = 24,
+  width,
+  height,
+  ...props
+}: IconProps & { date?: number }) => {
   return (
     <svg
       fill="none"
@@ -439,12 +443,12 @@ export const SolarCalendarDateLinear: React.FC<
   );
 };
 
-export const SolarUnreadLinear: React.FC<IconProps> = ({
+export const SolarUnreadLinear = ({
   size = 24,
   width,
   height,
   ...props
-}) => {
+}: IconProps) => {
   return (
     <svg
       fill="none"
@@ -466,12 +470,12 @@ export const SolarUnreadLinear: React.FC<IconProps> = ({
   );
 };
 
-export const SolarPenLinear: React.FC<IconProps> = ({
+export const SolarPenLinear = ({
   size = 24,
   width,
   height,
   ...props
-}) => {
+}: IconProps) => {
   return (
     <svg
       fill="none"
@@ -491,12 +495,12 @@ export const SolarPenLinear: React.FC<IconProps> = ({
   );
 };
 
-export const SolarTrashBinTrashLinear: React.FC<IconProps> = ({
+export const SolarTrashBinTrashLinear = ({
   size = 24,
   width,
   height,
   ...props
-}) => {
+}: IconProps) => {
   return (
     <svg
       fill="none"
@@ -517,12 +521,12 @@ export const SolarTrashBinTrashLinear: React.FC<IconProps> = ({
   );
 };
 
-export const SolarMenuDotsLinear: React.FC<IconProps> = ({
+export const SolarMenuDotsLinear = ({
   size = 24,
   width,
   height,
   ...props
-}) => {
+}: IconProps) => {
   return (
     <svg
       fill="none"
@@ -541,12 +545,12 @@ export const SolarMenuDotsLinear: React.FC<IconProps> = ({
   );
 };
 
-export const SolarCalendarMinimalisticLinear: React.FC<IconProps> = ({
+export const SolarCalendarMinimalisticLinear = ({
   size = 24,
   width,
   height,
   ...props
-}) => {
+}: IconProps) => {
   return (
     <svg
       fill="none"
@@ -564,12 +568,12 @@ export const SolarCalendarMinimalisticLinear: React.FC<IconProps> = ({
   );
 };
 
-export const SolarCalendarMarkLinear: React.FC<IconProps> = ({
+export const SolarCalendarMarkLinear = ({
   size = 24,
   width,
   height,
   ...props
-}) => {
+}: IconProps) => {
   return (
     <svg
       fill="none"
