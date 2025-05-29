@@ -47,11 +47,11 @@ export default function TaskView({ tasks, onAdd, onDelete }: TaskViewProps) {
 
       <Button
         isIconOnly
-        className="absolute bottom-16 right-16 text-primary bg-transparent"
+        className="absolute bottom-16 right-16 text-primary bg-default-foreground rounded-full"
         size="lg"
         onPress={add}
       >
-        <SolarAddCircleBold size={48} />
+        <SolarAddCircleBold trim size={48} />
       </Button>
     </>
   );
