@@ -73,6 +73,7 @@ export default function Task({
         onSubmit={(e) => {
           e.preventDefault();
           form.handleSubmit();
+          onClose?.();
         }}
       >
         <TaskHeader
