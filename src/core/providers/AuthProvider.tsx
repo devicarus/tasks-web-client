@@ -6,11 +6,17 @@ import {
   setupResponseInterceptor,
   ejectInterceptor,
 } from "@/shared/util";
-import { refreshAccessToken } from "@/feature/auth/api";
+import { deleteRefreshToken, refreshAccessToken } from "@/feature/auth/api";
 import { AuthContext } from "@/shared/AuthContext";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
+
+  const logout = async () => {
+    await deleteRefreshToken();
+    setToken(null);
+    location.reload();
+  };
 
   useEffect(() => {
     const initializeAuth = async () => {
@@ -38,6 +44,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     () => ({
       isAuthenticated: !!token,
       setToken,
+      logout,
     }),
     [token],
   );

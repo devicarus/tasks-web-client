@@ -28,3 +28,9 @@ export const refreshAccessToken = async (): Promise<string> => {
 
   return response.data.accessToken;
 };
+
+export const deleteRefreshToken = async () => {
+  await axiosPublic.delete("/auth/token").catch((error) => {
+    throw new Error(error?.response?.data?.error || "An error occurred");
+  });
+};
