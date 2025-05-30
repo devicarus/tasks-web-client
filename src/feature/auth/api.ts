@@ -1,7 +1,7 @@
 import { axiosPublic } from "@/shared/util/axios";
 import { Credentials } from "@/feature/auth/model";
 
-export const fetchAccessToken = async ({
+export const fetchTokens = async ({
   username,
   password,
 }: Credentials): Promise<string> => {

@@ -9,7 +9,7 @@ import { useNavigate, useSearch } from "@tanstack/react-router";
 
 import { title } from "@/shared/components/primitives";
 import { useAuth } from "@/shared/hooks/useAuth";
-import { fetchAccessToken } from "@/feature/auth/api";
+import { fetchTokens } from "@/feature/auth/api";
 import { Credentials } from "@/feature/auth/model";
 import { siteConfig } from "@/core/config/site";
 
@@ -20,7 +20,7 @@ export default function LoginPage() {
   const [error, setError] = useState("");
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: fetchAccessToken,
+    mutationFn: fetchTokens,
     onSuccess: setToken,
     onError: (error) => setError(error.message),
   });
