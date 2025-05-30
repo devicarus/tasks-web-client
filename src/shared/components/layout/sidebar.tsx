@@ -6,7 +6,7 @@ import {
   Logo,
   SolarCalendarDateLinear as TodayIcon,
   SolarWidget2Linear as ProjectsIcon,
-  SolarSettingsLinear as SettingsIcon,
+  //SolarSettingsLinear as SettingsIcon,
   SolarAddCircleBold as AddIcon,
   SolarCalendarMarkLinear as UpcommingIcon,
   SolarCalendarMinimalisticLinear as AnytimeIcon,
