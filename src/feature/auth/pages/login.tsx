@@ -11,6 +11,7 @@ import { title } from "@/shared/components/primitives";
 import { useAuth } from "@/shared/hooks/useAuth";
 import { fetchAccessToken } from "@/feature/auth/api";
 import { Credentials } from "@/feature/auth/model";
+import { siteConfig } from "@/core/config/site";
 
 export default function LoginPage() {
   const { setToken, isAuthenticated } = useAuth();
@@ -46,7 +47,9 @@ export default function LoginPage() {
         <section className="mx-auto w-full max-w-[466px] p-6 flex flex-col">
           <div className="inline-block max-w-lg text-center justify-center">
             <span className={title()}>Welcome to&nbsp;</span>
-            <span className={title({ color: "violet" })}>Tasks&nbsp;</span>
+            <span className={title({ color: "violet" })}>
+              {siteConfig.name}&nbsp;
+            </span>
           </div>
 
           <Form

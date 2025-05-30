@@ -13,6 +13,7 @@ import {
 } from "@/shared/components/icons";
 import { ThemeSwitch } from "@/shared/components/theme-switch";
 import { fetchProjects, createProject } from "@/feature/project/api";
+import { siteConfig } from "@/core/config/site";
 
 type SidebarLinkProps = {
   href: string;
@@ -75,7 +76,7 @@ export default function Sidebar() {
             to="/"
           >
             <Logo />
-            <p className="font-bold text-inherit">Tasks</p>
+            <p className="font-bold text-inherit">{siteConfig.name}</p>
           </Link>
           <ThemeSwitch />
         </div>
