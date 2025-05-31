@@ -1,5 +1,5 @@
-import { axiosPublic } from "@/shared/util/axios";
-import { Credentials } from "@/feature/auth/model";
+import { axiosPublic, axiosPrivate } from "@/shared/util/axios";
+import { Credentials, User } from "@/feature/auth/model";
 
 export const fetchTokens = async ({
   username,
@@ -33,4 +33,12 @@ export const deleteRefreshToken = async () => {
   await axiosPublic.delete("/auth/token").catch((error) => {
     throw new Error(error?.response?.data?.error || "An error occurred");
   });
+};
+
+export const fetchUserInfo = async (): Promise<User> => {
+  const response = await axiosPrivate.get("/users/me").catch((error) => {
+    throw new Error(error?.response?.data?.error || "An error occurred");
+  });
+
+  return response.data;
 };
