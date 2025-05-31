@@ -1,4 +1,11 @@
 import { Button } from "@heroui/button";
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+} from "@heroui/dropdown";
+import { User } from "@heroui/user";
 import { useRouterState, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useMutation } from "@tanstack/react-query";
 
@@ -10,10 +17,13 @@ import {
   SolarAddCircleBold as AddIcon,
   SolarCalendarMarkLinear as UpcommingIcon,
   SolarCalendarMinimalisticLinear as AnytimeIcon,
+  SolarLogout2Bold,
 } from "@/shared/components/icons";
 import { ThemeSwitch } from "@/shared/components/theme-switch";
 import { fetchProjects, createProject } from "@/feature/project/api";
 import { siteConfig } from "@/core/config/site";
+import { useAuth } from "@/shared/hooks/useAuth";
+import { fetchUserInfo } from "@/feature/auth/api";
 
 type SidebarLinkProps = {
   href: string;
@@ -50,10 +60,16 @@ export default function Sidebar() {
   const router = useRouterState();
   const currentPath = router.location.pathname;
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   const projectsQuery = useQuery({
     queryKey: ["projects"],
     queryFn: fetchProjects,
+  });
+
+  const userInfoQuery = useQuery({
+    queryKey: ["user"],
+    queryFn: fetchUserInfo,
   });
 
   const createMutation = useMutation({
@@ -83,6 +99,36 @@ export default function Sidebar() {
         <div className="overflow-y-auto pt-12">
           <nav>
             <ul className="flex flex-col gap-4">
+              <li className="mt-auto mb-4">
+                <section>
+                  <Dropdown placement="bottom">
+                    <DropdownTrigger>
+                      <User
+                        as="button"
+                        avatarProps={{
+                          isBordered: true,
+                          size: "sm",
+                        }}
+                        className="w-full justify-start px-2"
+                        name={userInfoQuery.data?.username}
+                      />
+                    </DropdownTrigger>
+                    <DropdownMenu aria-label="Profile Actions" variant="flat">
+                      <DropdownItem
+                        key="logout"
+                        className="text-danger"
+                        color="danger"
+                        startContent={
+                          <SolarLogout2Bold className="text-xl pointer-events-none flex-shrink-0 text-danger" />
+                        }
+                        onPress={logout}
+                      >
+                        Log Out
+                      </DropdownItem>
+                    </DropdownMenu>
+                  </Dropdown>
+                </section>
+              </li>
               <li>
                 <section>
                   <span className="pl-1 text-tiny text-foreground-500">
