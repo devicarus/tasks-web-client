@@ -79,6 +79,7 @@ export default function Task({
         <TaskHeader
           form={form}
           isOpen={isOpen}
+          task={task}
           onDelete={() => deleteMutation.mutateAsync(task.id)}
         />
         <div
@@ -97,8 +98,9 @@ const TaskHeader = withForm({
   props: {
     isOpen: false,
     onDelete: () => {},
+    task: {} as TaskModel,
   },
-  render: function Render({ form, isOpen, onDelete }) {
+  render: function Render({ form, isOpen, onDelete, task }) {
     return (
       <div
         className={`flex items-center w-full px-2 h-10 ${isOpen ? "" : "cursor-pointer"}`}
@@ -116,6 +118,8 @@ const TaskHeader = withForm({
                 variant="plain"
                 onKeyDown={(e) => {
                   if (e.code === "Backspace" && !state.value) onDelete();
+                  if (e.code === "Escape")
+                    document.getElementById(`task-${task.id}`)?.focus();
                 }}
               />
             )}
