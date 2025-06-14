@@ -9,7 +9,7 @@ import { formatTitle } from "@/shared/util/formatTitle";
 export const appTodayRoute = createRoute({
   getParentRoute: () => appRoute,
   component: AppTodayPage,
-  path: "/",
+  path: "/today",
   head: () => ({ meta: [{ title: formatTitle("Today") }] }),
 });
 

@@ -56,7 +56,11 @@ function SidebarLink({
   );
 }
 
-export default function Sidebar() {
+interface SidebarProps {
+  className?: string;
+}
+
+export default function Sidebar({ className }: SidebarProps) {
   const router = useRouterState();
   const currentPath = router.location.pathname;
   const navigate = useNavigate();
@@ -83,92 +87,91 @@ export default function Sidebar() {
   });
 
   return (
-    <div className="h-screen min-h-[48rem] overflow-y-scroll">
-      <div className="h-full w-72 border-r-small border-divider p-6">
-        <div className="flex items-center gap-2 px-2 justify-between">
-          <Link
-            className="flex justify-start items-center gap-1"
-            color="foreground"
-            to="/"
-          >
-            <Logo />
-            <p className="font-bold text-inherit">{siteConfig.name}</p>
-          </Link>
-          <ThemeSwitch />
-        </div>
-        <div className="overflow-y-auto pt-12">
-          <nav>
-            <ul className="flex flex-col gap-4">
-              <li className="mt-auto mb-4">
-                <section>
-                  <Dropdown placement="bottom">
-                    <DropdownTrigger>
-                      <User
-                        as="button"
-                        avatarProps={{
-                          isBordered: true,
-                          size: "sm",
-                        }}
-                        className="w-full justify-start px-2"
-                        name={userInfoQuery.data?.username}
-                      />
-                    </DropdownTrigger>
-                    <DropdownMenu aria-label="Profile Actions" variant="flat">
-                      <DropdownItem
-                        key="logout"
-                        className="text-danger"
-                        color="danger"
-                        startContent={
-                          <SolarLogout2Bold className="text-xl pointer-events-none flex-shrink-0 text-danger" />
-                        }
-                        onPress={logout}
-                      >
-                        Log Out
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </Dropdown>
-                </section>
-              </li>
-              <li>
-                <section>
-                  <span className="pl-1 text-tiny text-foreground-500">
-                    Overview
-                  </span>
-                  <ul>
-                    <li>
-                      <SidebarLink
-                        href="/app"
-                        isActive={currentPath == "/app"}
-                        label="Today"
-                        startContent={
-                          <TodayIcon
-                            className="text-foreground"
-                            date={new Date().getDate()}
-                          />
-                        }
-                      />
-                    </li>
-                    <li>
-                      <SidebarLink
-                        href="/app/upcomming"
-                        isActive={currentPath == "/app/upcomming"}
-                        label="Upcomming"
-                        startContent={
-                          <UpcommingIcon className="text-foreground" />
-                        }
-                      />
-                    </li>
-                    <li>
-                      <SidebarLink
-                        href="/app/anytime"
-                        isActive={currentPath == "/app/anytime"}
-                        label="Anytime"
-                        startContent={
-                          <AnytimeIcon className="text-foreground" />
-                        }
-                      />
-                    </li>
-                    {/*<li>
+    <div
+      className={`h-screen min-h-[48rem] p-6 overflow-y-scroll ${className}`}
+    >
+      <div className="flex items-center gap-2 px-2 justify-between">
+        <Link
+          className="flex justify-start items-center gap-1"
+          color="foreground"
+          to="/"
+        >
+          <Logo />
+          <p className="font-bold text-inherit">{siteConfig.name}</p>
+        </Link>
+        <ThemeSwitch />
+      </div>
+      <div className="overflow-y-auto pt-12">
+        <nav>
+          <ul className="flex flex-col gap-4">
+            <li className="mt-auto mb-4">
+              <section>
+                <Dropdown placement="bottom">
+                  <DropdownTrigger>
+                    <User
+                      as="button"
+                      avatarProps={{
+                        isBordered: true,
+                        size: "sm",
+                      }}
+                      className="w-full justify-start px-2"
+                      name={userInfoQuery.data?.username}
+                    />
+                  </DropdownTrigger>
+                  <DropdownMenu aria-label="Profile Actions" variant="flat">
+                    <DropdownItem
+                      key="logout"
+                      className="text-danger"
+                      color="danger"
+                      startContent={
+                        <SolarLogout2Bold className="text-xl pointer-events-none flex-shrink-0 text-danger" />
+                      }
+                      onPress={logout}
+                    >
+                      Log Out
+                    </DropdownItem>
+                  </DropdownMenu>
+                </Dropdown>
+              </section>
+            </li>
+            <li>
+              <section>
+                <span className="pl-1 text-tiny text-foreground-500">
+                  Overview
+                </span>
+                <ul>
+                  <li>
+                    <SidebarLink
+                      href="/app/today"
+                      isActive={currentPath == "/app/today"}
+                      label="Today"
+                      startContent={
+                        <TodayIcon
+                          className="text-foreground"
+                          date={new Date().getDate()}
+                        />
+                      }
+                    />
+                  </li>
+                  <li>
+                    <SidebarLink
+                      href="/app/upcomming"
+                      isActive={currentPath == "/app/upcomming"}
+                      label="Upcomming"
+                      startContent={
+                        <UpcommingIcon className="text-foreground" />
+                      }
+                    />
+                  </li>
+                  <li>
+                    <SidebarLink
+                      href="/app/anytime"
+                      isActive={currentPath == "/app/anytime"}
+                      label="Anytime"
+                      startContent={<AnytimeIcon className="text-foreground" />}
+                    />
+                  </li>
+                  {/*<li>
                       <SidebarLink
                         href="/app/settings"
                         isActive={currentPath == "/app/settings"}
@@ -178,44 +181,43 @@ export default function Sidebar() {
                         }
                       />
                     </li>*/}
-                  </ul>
-                </section>
-              </li>
-              <li>
-                <section>
-                  <span className="pl-1 text-tiny text-foreground-500">
-                    Projects
-                  </span>
-                  <ul>
-                    {projectsQuery.data &&
-                      projectsQuery.data.map(({ id, name }) => (
-                        <li key={id}>
-                          <SidebarLink
-                            href={`/app/project/${id}`}
-                            isActive={currentPath == `/app/project/${id}`}
-                            label={name || "New Project"}
-                            startContent={
-                              <ProjectsIcon className="text-foreground" />
-                            }
-                          />
-                        </li>
-                      ))}
-                    <li>
-                      <Button
-                        className="w-full mt-1"
-                        startContent={<AddIcon />}
-                        variant="ghost"
-                        onPress={() => createMutation.mutate()}
-                      >
-                        Create Project
-                      </Button>
-                    </li>
-                  </ul>
-                </section>
-              </li>
-            </ul>
-          </nav>
-        </div>
+                </ul>
+              </section>
+            </li>
+            <li>
+              <section>
+                <span className="pl-1 text-tiny text-foreground-500">
+                  Projects
+                </span>
+                <ul>
+                  {projectsQuery.data &&
+                    projectsQuery.data.map(({ id, name }) => (
+                      <li key={id}>
+                        <SidebarLink
+                          href={`/app/project/${id}`}
+                          isActive={currentPath == `/app/project/${id}`}
+                          label={name || "New Project"}
+                          startContent={
+                            <ProjectsIcon className="text-foreground" />
+                          }
+                        />
+                      </li>
+                    ))}
+                  <li>
+                    <Button
+                      className="w-full mt-1"
+                      startContent={<AddIcon />}
+                      variant="ghost"
+                      onPress={() => createMutation.mutate()}
+                    >
+                      Create Project
+                    </Button>
+                  </li>
+                </ul>
+              </section>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   );
