@@ -47,7 +47,7 @@ export default function TaskView({ tasks, onAdd, onDelete }: TaskViewProps) {
 
       <Button
         isIconOnly
-        className="absolute bottom-16 right-16 text-primary bg-default-foreground rounded-full"
+        className="absolute bottom-16 right-16 text-primary bg-white rounded-full"
         size="lg"
         onPress={add}
       >
