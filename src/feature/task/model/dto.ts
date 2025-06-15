@@ -1,3 +1,5 @@
+import { ProjectBriefDto } from "@/feature/project/model";
+
 export interface TaskDto {
   id: number;
   name: string;
@@ -5,4 +7,5 @@ export interface TaskDto {
   note: string;
   dueDate: string | null;
   deadlineDate: string | null;
+  project: ProjectBriefDto | null;
 }

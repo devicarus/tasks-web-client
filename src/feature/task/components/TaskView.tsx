@@ -11,9 +11,15 @@ interface TaskViewProps {
   tasks: Task[];
   onAdd: () => Promise<Task>;
   onDelete: Function;
+  hideProject?: boolean;
 }
 
-export default function TaskView({ tasks, onAdd, onDelete }: TaskViewProps) {
+export default function TaskView({
+  tasks,
+  onAdd,
+  onDelete,
+  hideProject,
+}: TaskViewProps) {
   const [selected, setSelected] = useState<number | null>(null);
 
   const add = async () => setSelected((await onAdd()).id);
@@ -33,6 +39,7 @@ export default function TaskView({ tasks, onAdd, onDelete }: TaskViewProps) {
           <TaskComponent
             key={task.id}
             className={selected == task.id ? "z-20" : "z-0"}
+            hideProject={hideProject}
             isOpen={selected == task.id}
             task={task}
             onClose={() => setSelected(null)}

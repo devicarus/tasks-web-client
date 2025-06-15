@@ -166,6 +166,7 @@ export default function AppProjectPage() {
       </header>
       <Divider className="my-4" />
       <TaskView
+        hideProject
         tasks={projectQuery.data.tasks}
         onAdd={() => createProjectTaskMutation.mutateAsync()}
         onDelete={() => projectQuery.refetch()}

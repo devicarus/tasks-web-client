@@ -10,6 +10,7 @@ export const mapTaskDtoToModel = (taskDto: TaskDto): Task => {
     note: taskDto.note,
     dueDate: taskDto.dueDate ? parseDate(taskDto.dueDate) : null,
     deadlineDate: taskDto.deadlineDate ? parseDate(taskDto.deadlineDate) : null,
+    project: taskDto.project,
   };
 };
 
@@ -21,5 +22,6 @@ export const mapTaskModelToDto = (task: Task): TaskDto => {
     note: task.note,
     dueDate: task.dueDate?.toString() || null,
     deadlineDate: task.deadlineDate?.toString() || null,
+    project: task.project,
   };
 };

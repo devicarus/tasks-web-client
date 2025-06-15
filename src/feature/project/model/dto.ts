@@ -5,3 +5,8 @@ export type ProjectDto = {
   name: string;
   tasks: TaskDto[];
 };
+
+export type ProjectBriefDto = {
+  id: number;
+  name: string;
+};

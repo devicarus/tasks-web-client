@@ -24,6 +24,7 @@ type TaskProps = {
   onOpen?: () => void;
   onDelete?: () => void;
   className?: string | undefined;
+  hideProject?: boolean;
 };
 
 export default function Task({
@@ -33,6 +34,7 @@ export default function Task({
   onOpen,
   onDelete,
   className = "",
+  hideProject = false,
 }: TaskProps) {
   const form = useAppForm({
     defaultValues: task,
@@ -78,6 +80,7 @@ export default function Task({
       >
         <TaskHeader
           form={form}
+          hideProject={hideProject}
           isOpen={isOpen}
           task={task}
           onDelete={() => deleteMutation.mutateAsync(task.id)}
@@ -99,8 +102,9 @@ const TaskHeader = withForm({
     isOpen: false,
     onDelete: () => {},
     task: {} as TaskModel,
+    hideProject: false,
   },
-  render: function Render({ form, isOpen, onDelete, task }) {
+  render: function Render({ form, isOpen, onDelete, task, hideProject }) {
     return (
       <div
         className={`flex items-center w-full px-2 h-10 ${isOpen ? "" : "cursor-pointer"}`}
@@ -108,6 +112,17 @@ const TaskHeader = withForm({
         <form.AppField name="done">
           {({ Checkbox }) => <Checkbox className="-mr-1 pr-0" />}
         </form.AppField>
+        {!hideProject && task.project && (
+          <Chip
+            className="ml-1 uppercase"
+            color="primary"
+            radius="sm"
+            size="sm"
+            variant="flat"
+          >
+            {task.project.name}
+          </Chip>
+        )}
         {isOpen ? (
           <form.AppField name="name">
             {({ Input, state }) => (
