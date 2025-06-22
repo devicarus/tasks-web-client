@@ -156,6 +156,8 @@ const TaskHeader = withForm({
                   <Chip
                     className="ml-auto"
                     color="danger"
+                    radius="sm"
+                    size="sm"
                     startContent={<FlagIconFilled size={18} />}
                     variant="flat"
                   >
@@ -176,7 +178,7 @@ const TaskBody = withForm({
   render: function Render({ form }) {
     return (
       <div className="w-full flex flex-row justify-between">
-        <div className="flex flex-col gap-2 p-2">
+        <div className="flex flex-row gap-2 px-2 pb-2">
           {form.state.values.dueDate && (
             <form.AppField name="dueDate">
               {({ PopoverCalendar, state, setValue }) => (
