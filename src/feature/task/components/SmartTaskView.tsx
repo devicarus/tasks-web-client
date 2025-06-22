@@ -1,4 +1,5 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { Spinner } from "@heroui/spinner";
 
 import { fetchTasks, createTask } from "@/feature/task/api";
 import { CreateTaskDto } from "@/feature/task/model";
@@ -30,11 +31,13 @@ export default function SmartTaskView({
     onSuccess: () => tasksQuery.refetch(),
   });
 
-  return (
+  return tasksQuery.isFetched ? (
     <TaskView
       tasks={tasksQuery.data || []}
       onAdd={async () => await createTaskMutation.mutateAsync()}
       onDelete={() => tasksQuery.refetch()}
     />
+  ) : (
+    <Spinner className="absolute left-1/2 top-1/2" size="lg" />
   );
 }
