@@ -14,7 +14,14 @@ export default function SmartTaskView({
   filterTemplate,
 }: SmartTaskViewProps) {
   const tasksQuery = useQuery({
-    queryKey: ["tasks"],
+    queryKey: [
+      "tasks",
+      {
+        filter: filter || "",
+        sortBy: "deadlineDate",
+        sortOrder: "asc",
+      },
+    ],
     queryFn: () => fetchTasks("deadlineDate", "asc", filter),
   });
 
