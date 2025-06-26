@@ -1,8 +1,18 @@
-# Vite & HeroUI Template
+<img src="https://capsule-render.vercel.app/api?type=waving&height=300&color=9353d3&text=Tasks%20Web%20Client&reversal=false&section=header&fontColor=ECEDEE&fontAlignY=42&descAlignY=50" />
 
-This is a template for creating applications using Vite and HeroUI (v2).
+**Tasks Web Client** is a fully-featured, responsive [**Tasks**](https://github.com/devicarus/tasks?tab=readme-ov-file) frontend.
 
-[Try it on CodeSandbox](https://githubbox.com/frontio-ai/vite-template)
+<br>
+<h3 align="center">
+  A sneak peek 🤫
+</h3>
+<p align="center">
+  <img src="docs/adding_a_task.gif" width="400px" />
+</p>
+<p align="center">
+  More screenshots in the <a href="#screenshots">Screenshots</a> section below.
+</p>
+<br>
 
 ## Technologies Used
 
@@ -12,13 +22,20 @@ This is a template for creating applications using Vite and HeroUI (v2).
 - [Tailwind Variants](https://tailwind-variants.org)
 - [TypeScript](https://www.typescriptlang.org)
 - [Framer Motion](https://www.framer.com/motion)
+- [TanStack Query](https://tanstack.com/query)
+- [TanStack Router](https://tanstack.com/router)
+- [TanStack Form](https://tanstack.com/form)
 
 ## How to Use
+
+> ⚠️ **WARNING**: This project is currently in development and not yet ready for production use.
+
+> 💡 **TIP**: *Docker image* and *Helm Chart* comming in the near future, stay tuned!
 
 To clone the project, run the following command:
 
 ```bash
-git clone https://github.com/frontio-ai/vite-template.git
+git clone https://github.com/devicarus/tasks-web-client.git
 ```
 
 ### Install dependencies
@@ -35,16 +52,9 @@ npm install
 npm run dev
 ```
 
-### Setup pnpm (optional)
+### Screenshots
 
-If you are using `pnpm`, you need to add the following code to your `.npmrc` file:
-
-```bash
-public-hoist-pattern[]=*@heroui/*
-```
-
-After modifying the `.npmrc` file, you need to run `pnpm install` again to ensure that the dependencies are installed correctly.
-
-## License
-
-Licensed under the [MIT license](https://github.com/frontio-ai/vite-template/blob/main/LICENSE).
+Mobile             |  Desktop
+:-------------------------:|:-------------------------:
+![](docs/mobile_dark.png)  |  ![](docs/desktop_dark.png)
+![](docs/mobile_light.png)  |  ![](docs/desktop_light.png)
